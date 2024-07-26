@@ -10,20 +10,24 @@ public abstract class Movement {
     private final int id;
     private final @NotNull Account from;
     private final @NotNull OffsetDateTime dateTime;
+    private final double value;
 
-    public Movement(int id, @NotNull Account from) {
+    public Movement(int id, @NotNull Account from, double value) {
         this.id = id;
         this.from = from;
+        this.value = value;
         this.dateTime = OffsetDateTime.now();
         from.getMovements().add(this);
     }
 
     protected abstract void operation(double value);
 
-    public abstract double getValue();
-
     public final int getId() {
         return id;
+    }
+
+    public final double getValue() {
+        return value;
     }
 
     public final @NotNull Account getFrom() {

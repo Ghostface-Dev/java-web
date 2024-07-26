@@ -10,11 +10,11 @@ public final class Customer {
     private final @NotNull String name;
     private final @NotNull String surname;
     private final @NotNull String email;
-    private final int cpf;
+    private final @NotNull String cpf;
     private final Status status;
     private final Pendencies pendencies;
 
-    public Customer(int id, @NotNull String name, @NotNull String surname, @NotNull String email, int cpf) {
+    public Customer(int id, @NotNull String name, @NotNull String surname, @NotNull String email, @NotNull String cpf) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -24,7 +24,7 @@ public final class Customer {
         this.pendencies = Pendencies.NONE;
     }
 
-    public static Customer create(int id, @NotNull String name, @NotNull String surname, @NotNull String email, int cpf) {
+    public static Customer create(int id, @NotNull String name, @NotNull String surname, @NotNull String email, @NotNull String cpf) {
         if (id <=0) {
             throw new IllegalArgumentException("ID invalid");
         }
@@ -43,7 +43,7 @@ public final class Customer {
         return email;
     }
 
-    public int getCpf() {
+    public @NotNull String getCpf() {
         return cpf;
     }
 

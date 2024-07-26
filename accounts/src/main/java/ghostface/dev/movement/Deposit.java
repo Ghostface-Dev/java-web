@@ -5,11 +5,9 @@ import ghostface.dev.core.Movement;
 import org.jetbrains.annotations.NotNull;
 
 public final class Deposit extends Movement {
-    private final double value;
 
     public Deposit(int id, @NotNull Account from, double value) {
-        super(id, from);
-        this.value = value;
+        super(id, from, value);
         operation(value);
     }
 
@@ -18,8 +16,4 @@ public final class Deposit extends Movement {
         getFrom().setBalance(getFrom().getBalance() + value);
     }
 
-    @Override
-    public double getValue() {
-        return value;
-    }
 }

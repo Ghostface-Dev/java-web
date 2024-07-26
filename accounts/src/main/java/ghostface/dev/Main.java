@@ -11,11 +11,11 @@ public class Main {
     public static void main(String[] args) {
         DatabaseImpl bancoSantander = new DatabaseImpl();
 
-        Customer clientJarlan = new Customer(1,"jarlan","clovis", "@gmail.com", 555);
-        Customer clientRobson = new Customer(2,"robson","airton", "@gmail.com", 555);
+        Customer clientJarlan = new Customer(1,"jarlan","clovis", "@gmail.com", "555");
+        Customer clientRobson = new Customer(2,"robson","airton", "@gmail.com", "555");
 
-        bancoSantander.recordCustomer(clientJarlan, "jarlan clovis", 555);
-        bancoSantander.recordCustomer(clientRobson, "robson airton", 555);
+        bancoSantander.recordCustomer(clientJarlan, "jarlan clovis", "555");
+        bancoSantander.recordCustomer(clientRobson, "robson airton", "555");
 
         Account contaJarlan = new Account(1,"javan",clientJarlan);
         Account contaRobson = new Account(2,"mendy", clientRobson);

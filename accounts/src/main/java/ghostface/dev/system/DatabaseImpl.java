@@ -14,8 +14,8 @@ public final class DatabaseImpl implements DatabaseFactory {
     private final List<@NotNull Movement> movements = new ArrayList<>();
 
     @Override
-    public void recordCustomer(@NotNull Customer customer, @NotNull String name, int cpf) {
-        if (customer.getCompleteName().equalsIgnoreCase(name) && customer.getCpf() == cpf) {
+    public void recordCustomer(@NotNull Customer customer, @NotNull String name, @NotNull String cpf) {
+        if (customer.getCompleteName().equalsIgnoreCase(name) && customer.getCpf().equalsIgnoreCase(cpf)) {
             customers.add(customer);
         } else {
             System.out.println("An error ocurred.");
