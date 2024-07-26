@@ -1,39 +1,63 @@
 package ghostface.dev.core;
 
-import ghostface.dev.entities.Customer;
+import ghostface.dev.client.Customer;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public abstract class Account {
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public final class Account {
+    private final int id;
+    private final @NotNull String login;
+    private final @NotNull Customer customer;
+
     private double balance;
 
-    protected void add(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Ammount cannot be negative");
-        }
-        setBalance(getBalance() + amount);
+    private final @NotNull Set<@NotNull Movement> movements;
+
+    public Account(int id, @NotNull String login, @NotNull Customer customer) {
+        this.id = id;
+        this.login = login;
+        this.customer = customer;
+        this.movements = new HashSet<>();
     }
 
-    protected void substract(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Ammount cannot be negative");
-        }
-        if (getBalance() <= 0) {
-            throw new IllegalArgumentException("Insuficient Balance");
-        }
-        setBalance(getBalance() - amount);
+    public int getId() {
+        return id;
     }
 
-    private void setBalance(double balance) {
-        this.balance = balance;
+    public @NotNull String getLogin() {
+        return login;
     }
 
-    public abstract @NotNull String getId();
-
-    public abstract @NotNull Customer getCustomer();
+    public @NotNull Customer getCustomer() {
+        return customer;
+    }
 
     public double getBalance() {
         return balance;
     }
 
-}
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 
+    @NotNull Set<@NotNull Movement> getMovements() {
+        return movements;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        @NotNull Account account = (Account) object;
+        return id == account.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+}
