@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.ghostface.dev</groupId>
-    <artifactId>accounts</artifactId>
+    <artifactId>jpark</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -19,12 +19,6 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>24.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.ghostface.dev</groupId>
-            <artifactId>jprompts</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
