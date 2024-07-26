@@ -1,8 +1,7 @@
 package factory;
 
 import entities.client.Client;
-import entities.client.Clientimp;
-import entities.client.vehicle.Vehicle;
+import entities.vehicle.Vehicle;
 import entities.spot.ParkingSpot;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,9 +28,11 @@ public interface Parking {
 
     @NotNull Vehicle getVehicle(@NotNull Client client);
 
-    @NotNull Client getClient(@NotNull String cpf);
+    @Nullable Vehicle getVehcle(@NotNull String plate);
 
-    @NotNull ParkingSpot getSpot(int id);
+    @Nullable Client getClient(@NotNull String cpf);
+
+    @Nullable ParkingSpot getSpot(int id);
 
     @NotNull List<@NotNull ParkingSpot> getAvaliableSpots();
 

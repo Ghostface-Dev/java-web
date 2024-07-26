@@ -2,7 +2,7 @@ package entities.spot;
 
 import entities.client.Client;
 import entities.client.Clientimp;
-import entities.client.vehicle.Vehicle;
+import entities.vehicle.Vehicle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

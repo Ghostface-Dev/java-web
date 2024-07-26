@@ -1,7 +1,9 @@
-package entities.client.vehicle;
+package entities.vehicle;
 
 import entities.client.Client;
+import entities.spot.ParkingSpot;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public interface Vehicle {
 
@@ -10,7 +12,8 @@ public interface Vehicle {
     @NotNull String getName();
     @NotNull String getBrand();
     @NotNull String getColor();
+    @Nullable ParkingSpot getSpot();
     void setColor(@NotNull String color);
-
+    void setSpot(@Nullable ParkingSpot spot);
 
 }

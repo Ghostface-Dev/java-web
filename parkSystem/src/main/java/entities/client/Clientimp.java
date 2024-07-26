@@ -1,7 +1,7 @@
 package entities.client;
 
 
-import entities.client.vehicle.Vehicle;
+import entities.vehicle.Vehicle;
 import org.jetbrains.annotations.NotNull;
 
 public final class Clientimp implements Client {
