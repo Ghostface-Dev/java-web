@@ -4,6 +4,8 @@ import entities.client.Client;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 
 public final class VehicleImp implements Vehicle {
     private final @NotNull String plate;
@@ -45,4 +47,16 @@ public final class VehicleImp implements Vehicle {
         return color;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        VehicleImp that = (VehicleImp) object;
+        return Objects.equals(plate, that.plate) && Objects.equals(client, that.client);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(plate, client);
+    }
 }

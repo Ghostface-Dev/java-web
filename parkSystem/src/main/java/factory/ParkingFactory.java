@@ -16,7 +16,7 @@ public interface ParkingFactory {
 
     void reserveSpot(@Range(from = 0, to = Long.MAX_VALUE) int spotId, @NotNull Client client);
 
-    void releaseSpot(@Range(from = 0, to = Long.MAX_VALUE) int spotID);
+    void releaseSpot(@Range(from = 0, to = Long.MAX_VALUE) int spotId);
 
     @Nullable ParkingSpot getSpot(@NotNull Vehicle vehicle);
 

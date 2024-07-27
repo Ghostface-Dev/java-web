@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 public final class ParkinSpotImp implements ParkingSpot {
 
@@ -73,4 +74,16 @@ public final class ParkinSpotImp implements ParkingSpot {
         return status == Status.AVALIABLE;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ParkinSpotImp that = (ParkinSpotImp) object;
+        return id == that.id && Objects.equals(client, that.client) && Objects.equals(vehicle, that.vehicle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, client, vehicle);
+    }
 }

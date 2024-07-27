@@ -4,6 +4,8 @@ package entities.client;
 import entities.vehicle.Vehicle;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public final class ClientImp implements Client {
 
     private final int id;
@@ -54,5 +56,18 @@ public final class ClientImp implements Client {
     @Override
     public void setEmail(@NotNull String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ClientImp clientImp = (ClientImp) object;
+        return id == clientImp.id && Objects.equals(cpf, clientImp.cpf) && Objects.equals(email, clientImp.email) && Objects.equals(vehicle, clientImp.vehicle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, cpf, email, vehicle);
     }
 }
