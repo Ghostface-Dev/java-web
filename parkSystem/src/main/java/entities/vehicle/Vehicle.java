@@ -13,7 +13,6 @@ public interface Vehicle {
     @NotNull String getBrand();
     @NotNull String getColor();
     @Nullable ParkingSpot getSpot();
-    void setColor(@NotNull String color);
     void setSpot(@Nullable ParkingSpot spot);
 
 }

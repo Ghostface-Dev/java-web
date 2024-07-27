@@ -25,12 +25,6 @@ public interface ParkingSpot {
 
     void vacate();
 
-    void setStatus(@NotNull Status status);
-
-    void setClient(@Nullable Client client);
-
-    void setTime(@Nullable OffsetDateTime dateTime);
-
     boolean isEmpty();
 
     enum Status {

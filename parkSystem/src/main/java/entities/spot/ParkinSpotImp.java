@@ -58,6 +58,7 @@ public final class ParkinSpotImp implements ParkingSpot {
     public void ocuppy(@NotNull Client client) {
         this.client = client;
         this.vehicle = client.getVehicle();
+        this.vehicle.setSpot(this);
         this.status = Status.OCCUPIED;
     }
 
@@ -66,28 +67,6 @@ public final class ParkinSpotImp implements ParkingSpot {
         this.status = Status.AVALIABLE;
         this.client = null;
         this.vehicle = null;
-    }
-
-    @Override
-    public void setStatus(@NotNull Status status) {
-        this.status = status;
-    }
-
-    @Override
-    public void setClient(@Nullable Client client) {
-        if (client == null) {
-            this.client = null;
-            this.vehicle = null;
-        } else {
-            this.client = client;
-            this.vehicle = client.getVehicle();
-        }
-
-    }
-
-    @Override
-    public void setTime(@Nullable OffsetDateTime dateTime) {
-        this.dateTime = dateTime;
     }
 
     @Override

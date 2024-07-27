@@ -9,7 +9,7 @@ public class VehicleImp implements Vehicle {
     private final @NotNull String plate;
     private final @NotNull String name;
     private final @NotNull String brand;
-    private @NotNull String color;
+    private final @NotNull String color;
     private final @NotNull Client client;
     private @Nullable ParkingSpot spot;
 
@@ -49,11 +49,6 @@ public class VehicleImp implements Vehicle {
     @Override
     public @Nullable ParkingSpot getSpot() {
         return spot;
-    }
-
-    @Override
-    public void setColor(@NotNull String color) {
-        this.color = color;
     }
 
     @Override

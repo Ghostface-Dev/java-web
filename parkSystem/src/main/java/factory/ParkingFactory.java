@@ -9,9 +9,10 @@ import org.jetbrains.annotations.Range;
 
 import java.util.List;
 
-public interface Parking {
-    // todo colocar verificador nos iD (maior que a quantidade de vagas)
+public interface ParkingFactory {
+    // todo criar classes abstratas
 
+    // final
     boolean isAvaliable(@NotNull ParkingSpot spot);
 
     boolean isAvaliable(@Range(from = 0, to = Long.MAX_VALUE) int spotId);
@@ -30,12 +31,19 @@ public interface Parking {
 
     @NotNull Vehicle getVehicle(@NotNull Client client);
 
-    @NotNull Vehicle getVehcle(@NotNull String plate);
+    @NotNull Vehicle getVehicle(@NotNull String plate);
 
-    @NotNull Client getClient(@NotNull String cpf);
+    @Nullable Vehicle getVehicle(@Range(from = 0, to = Long.MAX_VALUE) int spotId);
+
+    @Nullable Vehicle getVehicle(@NotNull ParkingSpot spot);
+
+    @NotNull Client getClient(@Range(from = 0, to = Long.MAX_VALUE) int clientId);
+
+    @Nullable Client getclient(@Range(from = 0, to = Long.MAX_VALUE) int spotId);
 
     @NotNull ParkingSpot getSpot(@Range(from = 0, to = Long.MAX_VALUE) int id);
 
+    // not final
     @NotNull List<@NotNull Integer> getAvaliableSpots();
 
     @NotNull List<@NotNull Integer> getOccupedSpot();
@@ -43,6 +51,8 @@ public interface Parking {
     void registerClient(@NotNull Client client);
 
     void registerVehicle(@NotNull Vehicle vehicle);
+    // not final
 
-
+    // todo criar metodos que peguem infos do veiculos e client
+    // todo criar sets de veiculos e emails
 }
