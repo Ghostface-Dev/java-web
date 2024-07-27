@@ -1,22 +1,22 @@
 package entities.spot;
 
 import entities.client.Client;
-import entities.client.Clientimp;
 import entities.vehicle.Vehicle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Range;
 
 import java.time.OffsetDateTime;
 
 public final class ParkinSpotImp implements ParkingSpot {
 
-    private final int id;
+    private final @Range(from = 0, to = Long.MAX_VALUE) int id;
     private @Nullable Client client;
     private @Nullable Vehicle vehicle;
     private @Nullable OffsetDateTime dateTime;
     private @NotNull Status status;
 
-    public ParkinSpotImp(int id) {
+    public ParkinSpotImp(@Range(from = 0, to = Long.MAX_VALUE) int id) {
         this.id = id;
         this.client = null;
         this.vehicle = null;
@@ -55,10 +55,17 @@ public final class ParkinSpotImp implements ParkingSpot {
     }
 
     @Override
-    public void ocuppy(@NotNull Clientimp client) {
+    public void ocuppy(@NotNull Client client) {
         this.client = client;
         this.vehicle = client.getVehicle();
         this.status = Status.OCCUPIED;
+    }
+
+    @Override
+    public void vacate() {
+        this.status = Status.AVALIABLE;
+        this.client = null;
+        this.vehicle = null;
     }
 
     @Override
@@ -79,8 +86,13 @@ public final class ParkinSpotImp implements ParkingSpot {
     }
 
     @Override
-    public void setTime(@NotNull OffsetDateTime dateTime) {
+    public void setTime(@Nullable OffsetDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return status == Status.AVALIABLE;
     }
 
 

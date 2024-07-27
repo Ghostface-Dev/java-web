@@ -5,22 +5,24 @@ import entities.vehicle.Vehicle;
 import entities.spot.ParkingSpot;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Range;
 
 import java.util.List;
 
 public interface Parking {
+    // todo colocar verificador nos iD (maior que a quantidade de vagas)
 
     boolean isAvaliable(@NotNull ParkingSpot spot);
 
-    boolean isAvaliable(int spotId);
+    boolean isAvaliable(@Range(from = 0, to = Long.MAX_VALUE) int spotId);
 
     void reserveSpot(@NotNull ParkingSpot spot, @NotNull Client client);
 
-    void reserveSpot(int spotId, @NotNull Client client);
+    void reserveSpot(@Range(from = 0, to = Long.MAX_VALUE) int spotId, @NotNull Client client);
 
     void releaseSpot(@NotNull ParkingSpot spot);
 
-    void releaseSpot(int spotID);
+    void releaseSpot(@Range(from = 0, to = Long.MAX_VALUE) int spotID);
 
     @Nullable ParkingSpot getSpot(@NotNull Vehicle vehicle);
 
@@ -28,15 +30,15 @@ public interface Parking {
 
     @NotNull Vehicle getVehicle(@NotNull Client client);
 
-    @Nullable Vehicle getVehcle(@NotNull String plate);
+    @NotNull Vehicle getVehcle(@NotNull String plate);
 
-    @Nullable Client getClient(@NotNull String cpf);
+    @NotNull Client getClient(@NotNull String cpf);
 
-    @Nullable ParkingSpot getSpot(int id);
+    @NotNull ParkingSpot getSpot(@Range(from = 0, to = Long.MAX_VALUE) int id);
 
-    @NotNull List<@NotNull ParkingSpot> getAvaliableSpots();
+    @NotNull List<@NotNull Integer> getAvaliableSpots();
 
-    @NotNull List<@NotNull ParkingSpot> getOccupedSpot();
+    @NotNull List<@NotNull Integer> getOccupedSpot();
 
     void registerClient(@NotNull Client client);
 
