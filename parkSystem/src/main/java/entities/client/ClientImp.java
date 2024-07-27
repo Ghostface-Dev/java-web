@@ -4,14 +4,15 @@ package entities.client;
 import entities.vehicle.Vehicle;
 import org.jetbrains.annotations.NotNull;
 
-public final class Clientimp implements Client {
+public final class ClientImp implements Client {
+
     private final int id;
     private final @NotNull String name;
     private final @NotNull String cpf;
     private @NotNull String email;
     private @NotNull Vehicle vehicle;
 
-    public Clientimp(@NotNull Vehicle vehicle, @NotNull String email, @NotNull String cpf, @NotNull String name, int id) {
+    public ClientImp(@NotNull Vehicle vehicle, @NotNull String email, @NotNull String cpf, @NotNull String name, int id) {
         this.vehicle = vehicle;
         this.email = email;
         this.cpf = cpf;
