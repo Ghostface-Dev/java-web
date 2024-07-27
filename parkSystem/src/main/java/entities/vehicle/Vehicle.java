@@ -8,11 +8,13 @@ import org.jetbrains.annotations.Nullable;
 public interface Vehicle {
 
     @NotNull String getPlate();
+
     @NotNull Client getClient();
+
     @NotNull String getName();
+
     @NotNull String getBrand();
+
     @NotNull String getColor();
-    @Nullable ParkingSpot getSpot();
-    void setSpot(@Nullable ParkingSpot spot);
 
 }

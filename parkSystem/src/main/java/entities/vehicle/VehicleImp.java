@@ -1,17 +1,16 @@
 package entities.vehicle;
 
 import entities.client.Client;
-import entities.spot.ParkingSpot;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-public class VehicleImp implements Vehicle {
+import org.jetbrains.annotations.NotNull;
+
+
+public final class VehicleImp implements Vehicle {
     private final @NotNull String plate;
     private final @NotNull String name;
     private final @NotNull String brand;
     private final @NotNull String color;
     private final @NotNull Client client;
-    private @Nullable ParkingSpot spot;
 
     public VehicleImp(@NotNull String plate, @NotNull String name, @NotNull String brand, @NotNull String color, @NotNull Client client) {
         this.plate = plate;
@@ -45,16 +44,5 @@ public class VehicleImp implements Vehicle {
     public @NotNull String getColor() {
         return color;
     }
-
-    @Override
-    public @Nullable ParkingSpot getSpot() {
-        return spot;
-    }
-
-    @Override
-    public void setSpot(@Nullable ParkingSpot spot) {
-        this.spot = spot;
-    }
-
 
 }

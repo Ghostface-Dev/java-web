@@ -13,7 +13,7 @@ public final class ParkinSpotImp implements ParkingSpot {
     private final @Range(from = 0, to = Long.MAX_VALUE) int id;
     private @Nullable Client client;
     private @Nullable Vehicle vehicle;
-    private @Nullable OffsetDateTime dateTime;
+    private final @Nullable OffsetDateTime dateTime;
     private @NotNull Status status;
 
     public ParkinSpotImp(@Range(from = 0, to = Long.MAX_VALUE) int id) {
@@ -58,7 +58,6 @@ public final class ParkinSpotImp implements ParkingSpot {
     public void ocuppy(@NotNull Client client) {
         this.client = client;
         this.vehicle = client.getVehicle();
-        this.vehicle.setSpot(this);
         this.status = Status.OCCUPIED;
     }
 
@@ -73,6 +72,5 @@ public final class ParkinSpotImp implements ParkingSpot {
     public boolean isEmpty() {
         return status == Status.AVALIABLE;
     }
-
 
 }
