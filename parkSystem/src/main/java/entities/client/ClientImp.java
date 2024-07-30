@@ -1,8 +1,10 @@
 package entities.client;
 
 
+import entities.client.email.Email;
 import entities.vehicle.Vehicle;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -52,6 +54,10 @@ public final class ClientImp implements Client {
         this.vehicle = vehicle;
     }
 
+    @Override
+    public void setVehicle(@NotNull Client client, @NotNull Vehicle vehicle) {
+        client.setVehicle(vehicle);
+    }
 
     @Override
     public void setEmail(@NotNull String email) {
@@ -59,10 +65,15 @@ public final class ClientImp implements Client {
     }
 
     @Override
-    public boolean equals(Object object) {
+    public void setEmail(@NotNull Client client, @NotNull String email) {
+        client.setEmail(email);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        ClientImp clientImp = (ClientImp) object;
+        @NotNull ClientImp clientImp = (ClientImp) object;
         return id == clientImp.id && Objects.equals(cpf, clientImp.cpf) && Objects.equals(email, clientImp.email) && Objects.equals(vehicle, clientImp.vehicle);
     }
 

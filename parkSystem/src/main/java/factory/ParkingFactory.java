@@ -9,12 +9,14 @@ import org.jetbrains.annotations.Range;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 public interface ParkingFactory {
 
-    boolean isAvaliable(@Range(from = 0, to = Long.MAX_VALUE) int spotId);
-
     void reserveSpot(@Range(from = 0, to = Long.MAX_VALUE) int spotId, @NotNull Client client);
+
+    void reserveSpot(@NotNull ParkingSpot spot, @NotNull Client client);
 
     void releaseSpot(@Range(from = 0, to = Long.MAX_VALUE) int spotId);
 
@@ -30,17 +32,15 @@ public interface ParkingFactory {
 
     @Nullable Client getClient(@NotNull String cpf);
 
+    @NotNull Optional<@NotNull Client> getClient(@Range(from = 0, to = Long.MAX_VALUE) long spotId);
+
     @NotNull ParkingSpot getSpot(@Range(from = 0, to = Long.MAX_VALUE) int id);
 
     @Nullable OffsetDateTime getTime(@Range(from = 0, to = Long.MAX_VALUE) int spotId);
 
-    @NotNull List<@NotNull Integer> getAvaliableSpots();
+    @NotNull Set<@NotNull Integer> getAvaliableSpots();
 
-    @NotNull List<@NotNull Integer> getOccupedSpot();
-
-    void setClientVehicle(@NotNull Client client, @NotNull Vehicle vehicle);
-
-    void setClientEmail(@NotNull Client client, @NotNull String email);
+    @NotNull Set<@NotNull Integer> getOccupedSpot();
 
     void registerClient(@NotNull Client client);
 

@@ -22,7 +22,7 @@ public final class ParkinSpotImp implements ParkingSpot {
         this.client = null;
         this.vehicle = null;
         this.dateTime = null;
-        this.status = Status.AVALIABLE;
+        this.status = Status.AVAILABLE;
     }
 
     @Override
@@ -64,14 +64,14 @@ public final class ParkinSpotImp implements ParkingSpot {
 
     @Override
     public void vacate() {
-        this.status = Status.AVALIABLE;
+        this.status = Status.AVAILABLE;
         this.client = null;
         this.vehicle = null;
     }
 
     @Override
-    public boolean isEmpty() {
-        return status == Status.AVALIABLE;
+    public boolean isAvailable() {
+        return status == Status.AVAILABLE;
     }
 
     @Override

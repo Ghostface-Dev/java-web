@@ -1,9 +1,12 @@
+package impl;
+
 import entities.client.Client;
 import entities.vehicle.Vehicle;
 import entities.spot.ParkinSpotImp;
 import entities.spot.ParkingSpot;
 
-import imp.ParkingImp;
+import factory.ParkingFactory;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
@@ -13,7 +16,7 @@ import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public final class ParkingSystem extends ParkingImp {
+public final class ParkingSystem implements ParkingFactory {
 
     private final @NotNull Map<@NotNull Integer, @NotNull Client> clients;
     private final @NotNull Map<@NotNull String, @NotNull Vehicle> vehicles;
@@ -29,25 +32,10 @@ public final class ParkingSystem extends ParkingImp {
     }
 
     @Override
-    public boolean isAvaliable(@Range(from = 0, to = Long.MAX_VALUE) int spotId) {
-        try {
-            checkers(spotId);
-            if (spotId == 0) {
-                System.out.println("Id invalid");
-                return false;
-            }
-            return spots.get(spotId).isEmpty();
-        } catch (IllegalArgumentException e) {
-            System.out.println("Id invalid");
-            return false;
-        }
-    }
-
-    @Override
     public void reserveSpot(@Range(from = 0, to = Long.MAX_VALUE) int spotId, @NotNull Client client) {
         try {
             checkers(spotId);
-            if (!isAvaliable(spots.get(spotId))) {
+            if (!isAvailable(spots.get(spotId))) {
                 System.out.println("This spot is in use");
             } else {
                 spots.get(spotId).ocuppy(client);
@@ -55,6 +43,11 @@ public final class ParkingSystem extends ParkingImp {
         } catch (IllegalArgumentException e) {
             System.out.println("Id invalid");
         }
+    }
+
+    @Override
+    public void reserveSpot(@NotNull ParkingSpot spot, @NotNull Client client) {
+        spot.ocuppy(client);
     }
 
     @Override
@@ -114,15 +107,18 @@ public final class ParkingSystem extends ParkingImp {
     }
 
     @Override
-    protected void checkers(@Range(from = 0, to = Long.MAX_VALUE) int spotId) {
+    public @NotNull Optional<@NotNull Client> getClient(@Range(from = 0, to = Long.MAX_VALUE) long spotId) {
+        return Optional.empty();
+    }
+
+    private void checkers(@Range(from = 0, to = Long.MAX_VALUE) int spotId) {
         if (spotId > spots.size() || spotId == 0) {
             throw new IllegalArgumentException();
         }
     }
 
-    @Override
-    protected boolean isAvaliable(@NotNull ParkingSpot spot) {
-        return spot.getStatus() == ParkingSpot.Status.AVALIABLE;
+    public boolean isAvailable(@NotNull ParkingSpot spot) {
+        return spot.getStatus() == ParkingSpot.Status.AVAILABLE;
     }
 
     @Override
@@ -141,19 +137,19 @@ public final class ParkingSystem extends ParkingImp {
     }
 
     @Override
-    public @NotNull List<@NotNull Integer> getAvaliableSpots() {
+    public @NotNull Set<@NotNull Integer> getAvaliableSpots() {
         return spots.values().stream()
-                .filter(spot -> spot.getStatus() == ParkingSpot.Status.AVALIABLE)
+                .filter(spot -> spot.getStatus() == ParkingSpot.Status.AVAILABLE)
                 .map(ParkingSpot::getId)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     @Override
-    public @NotNull List<@NotNull Integer> getOccupedSpot() {
+    public @NotNull Set<@NotNull Integer> getOccupedSpot() {
         return spots.values().stream()
                 .filter(spot -> spot.getStatus() == ParkingSpot.Status.OCCUPIED)
                 .map(ParkingSpot::getId)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     @Override

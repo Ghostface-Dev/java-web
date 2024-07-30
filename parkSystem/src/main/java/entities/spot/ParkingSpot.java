@@ -25,9 +25,9 @@ public interface ParkingSpot {
 
     void vacate();
 
-    boolean isEmpty();
+    boolean isAvailable();
 
     enum Status {
-        AVALIABLE, OCCUPIED
+        AVAILABLE, OCCUPIED
     }
 }
