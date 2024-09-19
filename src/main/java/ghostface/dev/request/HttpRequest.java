@@ -13,4 +13,6 @@ public interface HttpRequest {
     @NotNull URI getPath();
 
     @NotNull HttpVersion getVersion();
+
+    byte[] getBytes();
 }

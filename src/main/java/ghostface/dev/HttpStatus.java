@@ -13,4 +13,12 @@ public enum HttpStatus {
         this.code = code;
         this.message = message;
     }
+
+    public int getCode() {
+        return code;
+    }
+
+    public @NotNull String getMessage() {
+        return message;
+    }
 }
