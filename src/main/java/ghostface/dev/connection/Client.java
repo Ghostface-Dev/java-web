@@ -49,6 +49,10 @@ final class Client implements Closeable {
         return builder.toString();
     }
 
+    public void write(@NotNull String s) throws IOException {
+        getChannel().write(ByteBuffer.wrap(s.getBytes()));
+    }
+
     public @NotNull SocketChannel getChannel() {
         return channel;
     }

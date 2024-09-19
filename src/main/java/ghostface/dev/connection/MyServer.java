@@ -14,7 +14,7 @@ import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class MyServer implements Closeable {
+public final class MyServer {
 
     private final @NotNull Map<@NotNull SocketChannel, @NotNull Client> clients = new HashMap<>();
     private final @NotNull InetSocketAddress address;
@@ -46,11 +46,10 @@ public final class MyServer implements Closeable {
         return true;
     }
 
-    @Override
-    public synchronized void close() throws IOException {
+    public synchronized boolean stop() throws IOException {
 
         if (getSocket() == null || !getSocket().isBound() || getSelector() == null || thread == null) {
-            return;
+            return false;
         }
 
         for (@NotNull Client client : clients.values()) {
@@ -66,6 +65,8 @@ public final class MyServer implements Closeable {
         this.thread = null;
         this.socket = null;
         this.selector = null;
+
+        return true;
     }
 
     public @NotNull InetSocketAddress getAddress() {
