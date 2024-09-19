@@ -14,7 +14,7 @@ import java.nio.channels.ServerSocketChannel;
 public final class MyServer implements Closeable {
 
     private final @NotNull InetSocketAddress address;
-    private @Nullable ServerSockThread thread;
+    private @Nullable MyServerThread thread;
     private @Nullable ServerSocket socket;
     private @Nullable Selector selector;
 
@@ -36,7 +36,7 @@ public final class MyServer implements Closeable {
 
         this.socket = channel.socket();
 
-        this.thread = new ServerSockThread(this);
+        this.thread = new MyServerThread(this);
         this.thread.start();
 
         return true;
@@ -44,7 +44,7 @@ public final class MyServer implements Closeable {
 
     @Override
     public synchronized void close() throws IOException {
-        // TODO close
+
     }
 
     public @NotNull InetSocketAddress getAddress() {
