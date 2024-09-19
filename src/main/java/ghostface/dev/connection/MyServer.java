@@ -1,4 +1,4 @@
-package ghostface.dev.sock;
+package ghostface.dev.connection;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -10,9 +10,13 @@ import java.net.ServerSocket;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class MyServer implements Closeable {
 
+    private final @NotNull Map<@NotNull SocketChannel, @NotNull Client> clients = new HashMap<>();
     private final @NotNull InetSocketAddress address;
     private @Nullable MyServerThread thread;
     private @Nullable ServerSocket socket;
@@ -32,7 +36,7 @@ public final class MyServer implements Closeable {
         @NotNull ServerSocketChannel channel = ServerSocketChannel.open();
         channel.configureBlocking(false);
         channel.register(this.selector, SelectionKey.OP_ACCEPT);
-        channel.bind(this.address);
+        channel.bind(this.getAddress());
 
         this.socket = channel.socket();
 
@@ -45,17 +49,38 @@ public final class MyServer implements Closeable {
     @Override
     public synchronized void close() throws IOException {
 
+        if (getSocket() == null || !getSocket().isBound() || getSelector() == null || thread == null) {
+            return;
+        }
+
+        for (@NotNull Client client : clients.values()) {
+            client.close();
+        }
+
+        this.clients.clear();
+
+        getSocket().close();
+        getSelector().close();
+
+        this.thread.interrupt();
+        this.thread = null;
+        this.socket = null;
+        this.selector = null;
     }
 
     public @NotNull InetSocketAddress getAddress() {
         return address;
     }
 
-    public @Nullable ServerSocket getSocket() {
+    @Nullable ServerSocket getSocket() {
         return socket;
     }
 
-    public @Nullable Selector getSelector() {
+    @Nullable Selector getSelector() {
         return selector;
+    }
+
+    @NotNull Map<SocketChannel, Client> getClients() {
+        return clients;
     }
 }
