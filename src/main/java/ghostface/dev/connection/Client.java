@@ -1,15 +1,14 @@
 package ghostface.dev.connection;
 
-import ghostface.dev.response.HttpResponse;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 final class Client implements Closeable {
 
@@ -57,4 +56,18 @@ final class Client implements Closeable {
         return channel;
     }
 
+    // Natives
+
+    @Override
+    public boolean equals(@Nullable Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        @NotNull Client client = (Client) object;
+        return Objects.equals(channel, client.channel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(channel);
+    }
 }
