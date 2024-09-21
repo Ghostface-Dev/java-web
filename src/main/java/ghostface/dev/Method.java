@@ -1,5 +1,10 @@
 package ghostface.dev;
 
 public enum Method {
-    GET
+    GET,
+    POST,
+    PUT,
+    DELETE,
+    OPTIONS,
+    CONNECT
 }

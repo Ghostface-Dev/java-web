@@ -1,6 +1,6 @@
 package ghostface.dev.request;
 
-import ghostface.dev.HttpVersion;
+import ghostface.dev.protocol.HttpVersion;
 import ghostface.dev.Method;
 import org.jetbrains.annotations.NotNull;
 

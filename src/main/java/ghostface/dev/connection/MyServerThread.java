@@ -76,11 +76,12 @@ final class MyServerThread extends Thread {
                             @Nullable String message = client.read();
                             if (message != null) {
                                 System.out.println("Client: '" + client.getChannel().getLocalAddress() + "' write a message: '" + message + "'");
+
                                 client.write("HTTP/1.1 200 OK\r\n" +
                                         "Content-Type: text/html; charset=UTF-8\r\n" +
                                         "Content-Length: " + 137 +
                                         "Connection: close" + "\r\n\r\n" +
-                                        "<html><head><title>Shaolin</title></head><body><h1>Hello World!</h1></body></html>"
+                                        "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Teste com Favicon</title><link rel=\"icon\" type=\"image/png\" href=\"favicon.png\"></head><body><h1>Test favicon</h1></body></html>"
                                 );
                             }
                         } catch (IOException e) {

@@ -1,8 +1,9 @@
 package ghostface.dev.response;
 
-import ghostface.dev.HttpBody;
-import ghostface.dev.HttpStatus;
-import ghostface.dev.HttpVersion;
+import ghostface.dev.body.HttpBody;
+import ghostface.dev.header.HttpHeader;
+import ghostface.dev.status.HttpStatus;
+import ghostface.dev.protocol.HttpVersion;
 import org.jetbrains.annotations.NotNull;
 
 public interface HttpResponse {
