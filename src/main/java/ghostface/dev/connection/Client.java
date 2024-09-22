@@ -52,6 +52,10 @@ final class Client implements Closeable {
         getChannel().write(ByteBuffer.wrap(s.getBytes()));
     }
 
+    public void write(byte[] bytes) throws IOException {
+        getChannel().write(ByteBuffer.wrap(bytes));
+    }
+
     public @NotNull SocketChannel getChannel() {
         return channel;
     }

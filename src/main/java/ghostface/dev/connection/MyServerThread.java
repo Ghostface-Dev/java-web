@@ -1,5 +1,8 @@
 package ghostface.dev.connection;
 
+import ghostface.dev.body.HttpBody;
+import ghostface.dev.page.HomePage;
+import ghostface.dev.page.HtmlPage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,14 +78,18 @@ final class MyServerThread extends Thread {
                         try {
                             @Nullable String message = client.read();
                             if (message != null) {
-                                System.out.println("Client: '" + client.getChannel().getLocalAddress() + "' write a message: '" + message + "'");
+                                @NotNull HtmlPage page = new HomePage();
+                                @NotNull HttpBody body = HttpBody.create(page.getInputStream());
+                                System.out.println(message);
 
                                 client.write("HTTP/1.1 200 OK\r\n" +
                                         "Content-Type: text/html; charset=UTF-8\r\n" +
-                                        "Content-Length: " + 137 +
-                                        "Connection: close" + "\r\n\r\n" +
-                                        "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Teste com Favicon</title><link rel=\"icon\" type=\"image/png\" href=\"favicon.png\"></head><body><h1>Test favicon</h1></body></html>"
+                                        "Content-Length: " + body.getSize() + "\r\n" +
+                                        "Connection: close\r\n\r\n"
                                 );
+
+                                client.write(page.getBytes());
+
                             }
                         } catch (IOException e) {
                             throw new SocketException();
