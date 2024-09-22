@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 public interface HttpBody extends Closeable {
 
@@ -26,5 +27,8 @@ public interface HttpBody extends Closeable {
 
     @NotNull InputStream getInputStream() throws IOException;
 
+    @NotNull OutputStream getOutputStream() throws IOException;
+
     int getSize();
+
 }

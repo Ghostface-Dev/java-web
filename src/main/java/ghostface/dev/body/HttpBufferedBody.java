@@ -2,10 +2,7 @@ package ghostface.dev.body;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 final class HttpBufferedBody implements HttpBody {
 
@@ -21,7 +18,7 @@ final class HttpBufferedBody implements HttpBody {
 
     public HttpBufferedBody(@NotNull InputStream stream) throws IOException {
         try (@NotNull ByteArrayOutputStream output = new ByteArrayOutputStream()) {
-            byte[] bytes = new byte[8192];
+            byte[] bytes = new byte[4096];
 
             int read;
             while ((read = stream.read(bytes)) != -1) {
@@ -30,8 +27,20 @@ final class HttpBufferedBody implements HttpBody {
             }
 
             this.bytes = output.toByteArray();
-            this.size = bytes.length;
+            this.size = this.bytes.length;
         }
+    }
+
+    @Override
+    public @NotNull OutputStream getOutputStream() throws IOException {
+        @NotNull ByteArrayOutputStream output = new ByteArrayOutputStream(bytes.length);
+
+        byte[] bytes1 = new byte[8192];
+        int r;
+        while ((r = getInputStream().read(bytes1)) != -1) {
+            output.write(bytes1, 0, r);
+        }
+        return output;
     }
 
     @Override
@@ -42,6 +51,10 @@ final class HttpBufferedBody implements HttpBody {
     @Override
     public int getSize() {
         return size;
+    }
+
+    public boolean isClose() {
+        return closed;
     }
 
     @Override
