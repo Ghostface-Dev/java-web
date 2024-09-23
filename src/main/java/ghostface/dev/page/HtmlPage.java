@@ -7,7 +7,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public abstract class HtmlPage {
+public class HtmlPage {
 
     protected @Nullable File file;
     private final @NotNull String name;
@@ -32,7 +32,6 @@ public abstract class HtmlPage {
         }
     }
 
-
     public void close() throws IOException {
         if (file == null) {
             throw new IOException("This Http body page already closed");
@@ -49,5 +48,17 @@ public abstract class HtmlPage {
         return path;
     }
 
-    public abstract byte[] getBytes() throws IOException;
+    public byte[] getBytes() throws IOException {
+        @NotNull InputStream in = getInputStream();
+        @NotNull ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] bytes = new byte[4096];
+
+        int r;
+        while ((r = in.read(bytes)) != -1) {
+            outputStream.write(bytes, 0, r);
+            outputStream.flush();
+        }
+
+        return outputStream.toByteArray();
+    }
 }
