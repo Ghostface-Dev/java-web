@@ -13,18 +13,5 @@ public final class HomePage extends HtmlPage {
         super("home", Paths.get(System.getProperty("user.dir"), "frontend/home/index.html"));
     }
 
-    @Override
-    public byte[] getBytes() throws IOException {
-        @NotNull InputStream in = getInputStream();
-        @NotNull ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        byte[] bytes = new byte[4096];
 
-        int r;
-        while ((r = in.read(bytes)) != -1) {
-            outputStream.write(bytes, 0, r);
-            outputStream.flush();
-        }
-
-        return outputStream.toByteArray();
-    }
 }
