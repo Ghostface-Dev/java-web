@@ -6,6 +6,11 @@
 
     <groupId>ghostface.dev</groupId>
     <artifactId>java-web</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>http</module>
+    </modules>
 
     <dependencies>
         <dependency>
