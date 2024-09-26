@@ -3,14 +3,12 @@ package ghostface.dev.body;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-final class HttpCacheBody implements HttpBody {
+public class HttpCacheBody implements HttpBody {
 
     private final @NotNull File file;
     private final int size;
-
     private volatile boolean closed = false;
 
     public HttpCacheBody(@NotNull InputStream stream) throws IOException {
@@ -51,16 +49,12 @@ final class HttpCacheBody implements HttpBody {
     }
 
     @Override
-    public @NotNull OutputStream getOutputStream() throws IOException {
-        if (closed) {
-            throw new IOException("This Http Body already is closed");
-        } else {
-            return Files.newOutputStream(file.toPath());
-        }
+    public void write(@NotNull OutputStream stream) throws IOException {
+
     }
 
     @Override
-    public int getSize() {
+    public int size() {
         return size;
     }
 

@@ -4,11 +4,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 
-final class HttpBufferedBody implements HttpBody {
+public class HttpBufferedBody implements HttpBody {
 
     private byte @NotNull [] bytes;
     private final int size;
-
     private volatile boolean closed = false;
 
     public HttpBufferedBody(byte[] bytes) {
@@ -32,38 +31,26 @@ final class HttpBufferedBody implements HttpBody {
     }
 
     @Override
-    public @NotNull OutputStream getOutputStream() throws IOException {
-        @NotNull ByteArrayOutputStream output = new ByteArrayOutputStream(bytes.length);
-
-        byte[] bytes1 = new byte[8192];
-        int r;
-        while ((r = getInputStream().read(bytes1)) != -1) {
-            output.write(bytes1, 0, r);
-        }
-        return output;
-    }
-
-    @Override
     public @NotNull InputStream getInputStream() {
         return new ByteArrayInputStream(bytes);
     }
 
     @Override
-    public int getSize() {
-        return size;
+    public void write(@NotNull OutputStream stream) throws IOException {
+
     }
 
-    public boolean isClose() {
-        return closed;
+    @Override
+    public int size() {
+        return size;
     }
 
     @Override
     public void close() throws IOException {
         if (closed) {
             throw new IOException("This HTTP body already is closed");
-        } else try {
+        } else {
             bytes = new byte[0];
-        } finally {
             closed = true;
         }
     }
