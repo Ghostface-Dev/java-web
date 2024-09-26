@@ -1,4 +1,4 @@
-package ghostface.dev;
+package ghostface.dev.message;
 
 public enum Method {
     DELETE,
