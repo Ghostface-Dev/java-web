@@ -1,8 +1,11 @@
 package ghostface.dev.message;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 public final class Status {
 
@@ -70,10 +73,47 @@ public final class Status {
     public static final @NotNull Status MISDIRECTED_REQUEST = new Status(421, "Misdirected Request");
     public static final @NotNull Status UNAVAILABLE_FOR_LEGAL_REASONS = new Status(451, "Unavailable For Legal Reasons");
 
+    private static final @NotNull Set<@NotNull Status> collection = new LinkedHashSet<>();
+
+    public static boolean add(@NotNull Status status) {
+        return collection.add(status);
+    }
+
+    public static boolean remove(@NotNull Status status) {
+        return collection.remove(status);
+    }
+
+    public static boolean contains(@NotNull Status status) {
+        return collection.contains(status);
+    }
+
+    public static @NotNull Collection<@NotNull Status> collection() {
+        return Collections.unmodifiableSet(collection);
+    }
+
+    // Static initializer
+
+    static {
+        for (@NotNull Field field : Status.class.getDeclaredFields()) {
+            if (Modifier.isPublic(field.getModifiers()) && Modifier.isStatic(field.getModifiers())) {
+                try {
+                    @NotNull Status name = (Status) field.get(Status.class);
+                    collection.add(name);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException("Cannot loading http name '" + field.getName() + "'", e) ;
+                }
+            }
+        }
+    }
+
     // Objects
 
     private final int code;
     private final @NotNull String message;
+
+    @NotNull Optional<@NotNull Status> getStatus(@NotNull String message) {
+        return collection.stream().filter(status -> status.getMessage().equalsIgnoreCase(message)).findFirst();
+    }
 
     public Status(int code, @NotNull String message) {
         this.code = code;
@@ -86,5 +126,20 @@ public final class Status {
 
     public @NotNull String getMessage() {
         return message;
+    }
+
+    // Natives
+
+    @Override
+    public boolean equals(@Nullable Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        @NotNull Status status = (Status) object;
+        return code == status.code && Objects.equals(message, status.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, message);
     }
 }

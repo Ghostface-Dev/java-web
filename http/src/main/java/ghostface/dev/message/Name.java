@@ -1,10 +1,11 @@
 package ghostface.dev.message;
 
-import ghostface.dev.headers.HttpHeader;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 public class Name {
 
@@ -104,6 +105,39 @@ public class Name {
     public static final @NotNull Name X_CONTENT_TYPE_OPTIONS = new Name("x-content-type-options");
     public static final @NotNull Name X_FRAME_OPTIONS = new Name("x-frame-options");
 
+    private static final @NotNull Set<@NotNull Name> collection = new LinkedHashSet<>();
+
+    public static boolean add(@NotNull Name name) {
+        return collection.add(name);
+    }
+
+    public static boolean remove(@NotNull Name name) {
+        return collection.remove(name);
+    }
+
+    public static boolean contains(@NotNull Name name) {
+        return collection.contains(name);
+    }
+
+    public static @NotNull Collection<@NotNull Name> collection() {
+        return Collections.unmodifiableSet(collection);
+    }
+
+    // Static initializer
+
+    static {
+        for (@NotNull Field field : Name.class.getDeclaredFields()) {
+            if (Modifier.isPublic(field.getModifiers()) && Modifier.isStatic(field.getModifiers())) {
+                try {
+                    @NotNull Name name = (Name) field.get(Name.class);
+                    collection.add(name);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException("Cannot loading http name '" + field.getName() + "'", e) ;
+                }
+            }
+        }
+    }
+
     public static boolean validate(@NotNull String s) {
         if (s.split("-").length > 6) {
             return false;
@@ -114,14 +148,19 @@ public class Name {
         }
     }
 
+    // Objects
+
     private final @NotNull String string;
 
     public Name(@NotNull String string) {
-        if (!validate(string)) throw new IllegalArgumentException("This Header name is not valid");
-        this.string = string;
+        if (!validate(string)) {
+            throw new IllegalArgumentException("The string '" + string + "' is not a valid http name");
+        }
+        this.string = string.toLowerCase();
     }
 
-    public @NotNull String string() {
+    @Override
+    public String toString() {
         return string;
     }
 
