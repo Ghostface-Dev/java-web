@@ -1,16 +1,17 @@
 package ghostface.dev.headers;
 
-import ghostface.dev.message.Name;
+import ghostface.dev.message.HttpName;
+import ghostface.dev.message.Target;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class HttpHeaders implements Collection<@NotNull HttpHeader<?>> {
 
-    private final @NotNull Set<@NotNull HttpHeader<?>> headers = new LinkedHashSet<>();
+    private final @NotNull List<@NotNull HttpHeader<?>> headers = new LinkedList<>();
 
     public HttpHeaders(@NotNull HttpHeader<?> @NotNull ... headers) {
         if (headers.length == 0) {
@@ -19,8 +20,12 @@ public final class HttpHeaders implements Collection<@NotNull HttpHeader<?>> {
         this.headers.addAll(List.of(headers));
     }
 
-    public @NotNull Optional<@NotNull HttpHeader<?>> getName(@NotNull Name name) {
-        return headers.stream().filter(header -> header.getName().equals(name)).findFirst();
+    public @NotNull Optional<@NotNull HttpHeader<?>> getHeader(@NotNull HttpName httpName) {
+        return headers.stream().filter(header -> header.getName().equals(httpName)).findFirst();
+    }
+
+    public @NotNull List<@NotNull HttpHeader<?>> getHeaders(@NotNull Target target) {
+        return headers.stream().filter(header -> header.getTarget().equals(target)).toList();
     }
 
     @Override

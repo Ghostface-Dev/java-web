@@ -1,6 +1,5 @@
 package ghostface.dev.content;
 
-import ghostface.dev.message.Name;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -65,6 +64,11 @@ public class MediaType<T> {
 
     public final @NotNull Parameter[] getParameters() {
         return parameters;
+    }
+
+    @Override
+    public String toString() {
+        return "Content-Type: " + type + Arrays.toString(parameters);
     }
 
     @Override
@@ -146,7 +150,7 @@ public class MediaType<T> {
 
         @Override
         public String toString() {
-            return getType() + "/" + getSubType();
+            return getType() + "/" + getSubType() + "; ";
         }
 
         @Override
@@ -187,7 +191,7 @@ public class MediaType<T> {
 
         @Override
         public String toString() {
-            return parameter + "=" + value;
+            return parameter + "=" + value + ",";
         }
 
         @Override
