@@ -1,6 +1,6 @@
 package ghostface.dev.message;
 
-public enum Method {
+public enum HttpMethod {
     DELETE,
     GET,
     HEAD,
