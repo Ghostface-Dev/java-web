@@ -1,5 +1,6 @@
 package ghostface.dev.body;
 
+import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -15,6 +16,7 @@ public class HttpBufferedBody implements HttpBody {
         this.size = bytes.length;
     }
 
+    @Blocking
     public HttpBufferedBody(@NotNull InputStream stream) throws IOException {
         try (@NotNull ByteArrayOutputStream output = new ByteArrayOutputStream()) {
             byte[] bytes = new byte[4096];
@@ -37,7 +39,7 @@ public class HttpBufferedBody implements HttpBody {
 
     @Override
     public void write(@NotNull OutputStream stream) throws IOException {
-
+        stream.write(bytes);
     }
 
     @Override

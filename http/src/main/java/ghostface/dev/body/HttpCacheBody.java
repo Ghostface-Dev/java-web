@@ -1,5 +1,6 @@
 package ghostface.dev.body;
 
+import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -24,6 +25,7 @@ public class HttpCacheBody implements HttpBody {
         uptdate(new ByteArrayInputStream(bytes));
     }
 
+    @Blocking
     private int uptdate(@NotNull InputStream inputStream) throws IOException {
         try (@NotNull FileOutputStream output = new FileOutputStream(file)) {
             byte[] bytes = new byte[8192];
@@ -50,7 +52,14 @@ public class HttpCacheBody implements HttpBody {
 
     @Override
     public void write(@NotNull OutputStream stream) throws IOException {
+        @NotNull InputStream input = getInputStream();
+        byte[] bytes = new byte[8192];
 
+        int read;
+        while ((read = input.read(bytes)) != -1) {
+            stream.write(bytes, 0, read);
+            stream.flush();
+        }
     }
 
     @Override

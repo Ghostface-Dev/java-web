@@ -1,5 +1,6 @@
 package ghostface.dev.body;
 
+import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Closeable;
@@ -27,6 +28,7 @@ public interface HttpBody extends Closeable {
 
     @NotNull InputStream getInputStream() throws IOException;
 
+    @Blocking
     void write(@NotNull OutputStream stream) throws IOException;
 
     int size();
