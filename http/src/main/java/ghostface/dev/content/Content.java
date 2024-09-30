@@ -11,5 +11,4 @@ public interface Content<T> {
     @NotNull MediaType<T> getMediaType();
 
     @NotNull T getData();
-
 }

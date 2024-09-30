@@ -4,36 +4,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
 
-public class MediaType<T> {
+public abstract class MediaType<T> {
 
     private static final @NotNull Set<@NotNull MediaType<?>> collection = new LinkedHashSet<>();
-
-    public static boolean add(@NotNull MediaType<?> media) {
-        if (collection.stream().anyMatch(mediaType -> mediaType.getType().equals(media.getType()))) {
-            return false;
-        }
-        else return collection.add(media);
-    }
-
-    public static boolean remove(@NotNull MediaType<?> media) {
-        return collection.remove(media);
-    }
-
-    public static boolean contains(@NotNull MediaType<?> media) {
-        return collection.contains(media);
-    }
-
-    public static @NotNull Collection<@NotNull MediaType<?>> collection() {
-        return Collections.unmodifiableSet(collection);
-    }
-
-    // Static initializers
 
     static {
         for (@NotNull Method method : MediaType.class.getDeclaredMethods()) {
@@ -48,6 +28,24 @@ public class MediaType<T> {
         }
     }
 
+    public static boolean add(@NotNull MediaType<?> media) {
+        if (collection.stream().anyMatch(mediaType -> mediaType.getType().equals(media.getType())))
+            return false;
+        return collection.add(media);
+    }
+
+    public static boolean remove(@NotNull MediaType<?> media) {
+        return collection.remove(media);
+    }
+
+    public static boolean contains(@NotNull MediaType<?> media) {
+        return collection.contains(media);
+    }
+
+    public static @NotNull Collection<@NotNull MediaType<?>> collection() {
+        return Collections.unmodifiableSet(collection);
+    }
+
     // Objects
 
     private final @NotNull Type type;
@@ -58,18 +56,19 @@ public class MediaType<T> {
         this.parameters = parameters;
     }
 
-    public final @NotNull Type getType() {
+    public @NotNull Type getType() {
         return type;
     }
 
-    public final @NotNull Parameter[] getParameters() {
+    public @NotNull Parameter[] getParameters() {
         return parameters;
     }
 
     @Override
-    public String toString() {
-        return "Content-Type: " + type + Arrays.toString(parameters);
-    }
+    public abstract @NotNull String toString();
+    public abstract @NotNull T deserialize(@NotNull InputStream stream, @NotNull Parameter @NotNull ... parameters);
+
+    // Implementations
 
     @Override
     public boolean equals(@Nullable Object object) {
@@ -171,16 +170,20 @@ public class MediaType<T> {
 
     public static final class Parameter {
 
-        private final @NotNull String parameter;
+        private final @NotNull String key;
         private final @NotNull String value;
 
-        public Parameter(@NotNull String parameter, @NotNull String value) {
-            this.parameter = parameter.toLowerCase();
+        public Parameter(@NotNull String key, @NotNull String value) {
+            this.key = key.toLowerCase();
             this.value = value.toLowerCase();
+
+            if (key.contains(";") || key.contains(",") || value.contains(";") || value.contains(",")) {
+                throw new IllegalArgumentException("content type parameter key or value contains illegal caracteres");
+            }
         }
 
-        public @NotNull String getParameter() {
-            return parameter;
+        public @NotNull String getKey() {
+            return key;
         }
 
         public @NotNull String getValue() {
@@ -191,7 +194,7 @@ public class MediaType<T> {
 
         @Override
         public String toString() {
-            return parameter + "=" + value + ",";
+            return getKey() + "=" + getValue() + ",";
         }
 
         @Override
@@ -199,12 +202,12 @@ public class MediaType<T> {
             if (this == object) return true;
             if (object == null || getClass() != object.getClass()) return false;
             Parameter that = (Parameter) object;
-            return Objects.equals(parameter, that.parameter) && Objects.equals(value, that.value);
+            return Objects.equals(key, that.key) && Objects.equals(value, that.value);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(parameter, value);
+            return Objects.hash(key, value);
         }
     }
 }
