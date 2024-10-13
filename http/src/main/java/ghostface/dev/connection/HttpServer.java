@@ -8,9 +8,11 @@ import org.jetbrains.annotations.Nullable;
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.SocketAddress;
 import java.nio.channels.Selector;
 import java.util.Collection;
+import java.util.Optional;
 
 public abstract class HttpServer implements Closeable {
 
@@ -28,6 +30,10 @@ public abstract class HttpServer implements Closeable {
         return adress;
     }
 
+    public @NotNull Optional<@NotNull HttpClient> getClient(@NotNull Socket socket) {
+        return getClients().stream().filter(client -> client.getSocket().equals(socket)).findFirst();
+    }
+
     public final boolean isClosed() {
         return socket == null || selector == null;
     }
@@ -38,7 +44,8 @@ public abstract class HttpServer implements Closeable {
     }
 
     public abstract @NotNull Collection<@NotNull HttpClient> getClients();
-    public abstract @NotNull HttpResponse process(@NotNull HttpRequest request);
-    public abstract void write(@NotNull HttpResponse response, @NotNull HttpClient client) throws IOException;
+
     public abstract boolean start() throws IOException;
+
+    public abstract @NotNull HttpResponse compute(@NotNull HttpRequest request);
 }

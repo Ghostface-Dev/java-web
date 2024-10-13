@@ -53,7 +53,7 @@ public class HttpCacheBody implements HttpBody {
     @Override
     public void write(@NotNull OutputStream stream) throws IOException {
         @NotNull InputStream input = getInputStream();
-        byte[] bytes = new byte[8192];
+        byte[] bytes = new byte[8192]; // 8KB
 
         int read;
         while ((read = input.read(bytes)) != -1) {

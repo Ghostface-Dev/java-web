@@ -19,7 +19,7 @@ public class HttpBufferedBody implements HttpBody {
     @Blocking
     public HttpBufferedBody(@NotNull InputStream stream) throws IOException {
         try (@NotNull ByteArrayOutputStream output = new ByteArrayOutputStream()) {
-            byte[] bytes = new byte[4096];
+            byte[] bytes = new byte[4096]; // 4KB
 
             int read;
             while ((read = stream.read(bytes)) != -1) {

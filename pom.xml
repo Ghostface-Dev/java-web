@@ -18,6 +18,11 @@
             <artifactId>annotations</artifactId>
             <version>24.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>codes.laivy</groupId>
+            <artifactId>java-serializable</artifactId>
+            <version>1.1</version>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -1,10 +1,8 @@
 package ghostface.dev.media.json;
 
-import codes.laivy.serializable.json.JsonSerializable;
+
 import com.google.gson.JsonObject;
 import ghostface.dev.media.MediaType;
-import ghostface.dev.media.Parameter;
-import ghostface.dev.media.Type;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;

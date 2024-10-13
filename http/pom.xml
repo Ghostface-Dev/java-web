@@ -9,6 +9,16 @@
         <version>1.0</version>
     </parent>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.18.1</version>
+        </dependency>
+
+    </dependencies>
+
     <artifactId>http</artifactId>
 
     <properties>

@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class HttpHeaders implements Collection<@NotNull HttpHeader<?>> {

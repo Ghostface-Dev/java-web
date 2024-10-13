@@ -9,13 +9,9 @@ import java.util.Objects;
 public class HttpVersion {
 
     // Static Providers
-    public static @NotNull HttpVersion HTTP_1_1() {
-        return new HttpVersion(1, 1);
-    }
 
-    public static @NotNull HttpVersion HTTP_1_0() {
-        return new HttpVersion(1, 0);
-    }
+    public static @NotNull HttpVersion HTTP_1_0 = new HttpVersion(1, 0);
+    public static @NotNull HttpVersion HTTP_1_1 = new HttpVersion(1, 1);
 
     // Objects
 
