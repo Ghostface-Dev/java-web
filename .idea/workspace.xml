@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ac9d0d8e-3201-4bc1-abbe-1aefa752b7bd" name="Changes" comment="improved bodies">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/http/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/body/HttpBufferedBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/body/HttpBufferedBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/body/HttpCacheBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/body/HttpCacheBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/connection/HttpClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/connection/HttpServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/exception/HttpFormatException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/headers/HttpHeader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/headers/HttpHeaders.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/impl/HttpRequestImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/impl/HttpResponseImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/impl/HttpUtilsImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/media/MediaType.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/media/MediaType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/media/json/JsonMediaType.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/media/json/JsonMediaType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/message/HttpMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/message/HttpName.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/message/HttpStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/message/Target.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/request/HttpRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/response/HttpResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/util/HttpUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/version/HttpVersion.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2nONwFwVnCF1pSG7Vpv7Fy0S3Lz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ac9d0d8e-3201-4bc1-abbe-1aefa752b7bd" name="Changes" comment="" />
+      <created>1728840400010</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728840400010</updated>
+    </task>
+    <task id="LOCAL-00001" summary="improved bodies">
+      <option name="closed" value="true" />
+      <created>1728874768355</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728874768355</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="improved bodies" />
+    <option name="LAST_COMMIT_MESSAGE" value="improved bodies" />
+  </component>
+</project>
