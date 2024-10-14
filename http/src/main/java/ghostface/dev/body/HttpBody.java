@@ -1,6 +1,5 @@
 package ghostface.dev.body;
 
-import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Closeable;
@@ -11,25 +10,26 @@ import java.io.OutputStream;
 public interface HttpBody extends Closeable {
 
     static @NotNull HttpBody create(@NotNull InputStream inputStream) throws IOException {
-        if (inputStream.available() <= 8192) {
-            return new HttpBufferedBody(inputStream);
-        } else {
+        if (inputStream.available() > 8192) {
             return new HttpCacheBody(inputStream);
+        } else {
+            return new HttpBufferedBody(inputStream);
         }
     }
 
-    static @NotNull HttpBody create(byte @NotNull[] bytes) throws IOException {
-        if (bytes.length <= 8192) {
-            return new HttpBufferedBody(bytes);
-        } else {
+    static @NotNull HttpBody create(byte @NotNull [] bytes) throws IOException {
+        if (bytes.length > 8192) {
             return new HttpCacheBody(bytes);
+        } else {
+            return new HttpBufferedBody(bytes);
         }
     }
 
     @NotNull InputStream getInputStream() throws IOException;
 
-    @Blocking
-    void write(@NotNull OutputStream stream) throws IOException;
+    void write(@NotNull OutputStream outputStream) throws IOException;
 
-    int size();
+    boolean isClose();
+
+    int length();
 }

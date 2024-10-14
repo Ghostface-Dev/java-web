@@ -1,32 +1,30 @@
 package ghostface.dev.body;
 
-import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.file.Files;
 
-public class HttpCacheBody implements HttpBody {
+public final class HttpCacheBody implements HttpBody {
 
     private final @NotNull File file;
-    private final int size;
-    private volatile boolean closed = false;
+    private final int lengh;
+    private volatile boolean close = false;
 
-    public HttpCacheBody(@NotNull InputStream stream) throws IOException {
+    public HttpCacheBody(@NotNull InputStream inputStream) throws IOException {
         this.file = File.createTempFile("ghostface", "-cache_body");
         this.file.deleteOnExit();
-        this.size = uptdate(stream);
+        this.lengh = update(inputStream);
     }
 
-    public HttpCacheBody(byte[] bytes) throws IOException {
+    public HttpCacheBody(byte @NotNull [] bytes) throws IOException {
         this.file = File.createTempFile("ghostface", "-cache_body");
         this.file.deleteOnExit();
-        this.size = bytes.length;
-        uptdate(new ByteArrayInputStream(bytes));
+        this.lengh = bytes.length;
+        update(new ByteArrayInputStream(bytes));
     }
 
-    @Blocking
-    private int uptdate(@NotNull InputStream inputStream) throws IOException {
+    private int update(@NotNull InputStream inputStream) throws IOException {
         try (@NotNull FileOutputStream output = new FileOutputStream(file)) {
             byte[] bytes = new byte[8192];
 
@@ -43,38 +41,39 @@ public class HttpCacheBody implements HttpBody {
 
     @Override
     public @NotNull InputStream getInputStream() throws IOException {
-        if (closed) {
-            throw new IOException("This Http Body already is closed");
-        } else {
-            return Files.newInputStream(file.toPath());
-        }
+        return Files.newInputStream(file.toPath());
     }
 
     @Override
-    public void write(@NotNull OutputStream stream) throws IOException {
-        @NotNull InputStream input = getInputStream();
-        byte[] bytes = new byte[8192]; // 8KB
+    public void write(@NotNull OutputStream outputStream) throws IOException {
+        @NotNull InputStream inputStream = getInputStream();
+        byte[] bytes = new byte[4096]; // 4kb
 
         int read;
-        while ((read = input.read(bytes)) != -1) {
-            stream.write(bytes, 0, read);
-            stream.flush();
+        while ((read = inputStream.read(bytes)) != -1) {
+            outputStream.write(bytes, 0, read);
+            outputStream.flush();
         }
     }
 
     @Override
-    public int size() {
-        return size;
+    public boolean isClose() {
+        return false;
+    }
+
+    @Override
+    public int length() {
+        return lengh;
     }
 
     @Override
     public void close() throws IOException {
-        if (closed) {
-            throw new IOException("Http body already closed");
+        if (close) {
+            throw new IOException("This body already is close");
         } else try {
             Files.delete(file.toPath());
         } finally {
-            closed = true;
+            close = true;
         }
     }
 }
