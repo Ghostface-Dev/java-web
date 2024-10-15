@@ -1,4 +1,4 @@
-package ghostface.dev.body;
+package ghostface.dev.http.body;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,7 +47,7 @@ public final class HttpCacheBody implements HttpBody {
     @Override
     public void write(@NotNull OutputStream outputStream) throws IOException {
         @NotNull InputStream inputStream = getInputStream();
-        byte[] bytes = new byte[4096]; // 4kb
+        byte[] bytes = new byte[8192]; // 8kb
 
         int read;
         while ((read = inputStream.read(bytes)) != -1) {

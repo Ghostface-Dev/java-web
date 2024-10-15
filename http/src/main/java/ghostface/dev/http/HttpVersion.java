@@ -1,16 +1,12 @@
-package ghostface.dev.version;
+package ghostface.dev.http;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-// TODO: transform HTTP Version in abstract class because each http version has specific factory
-public class HttpVersion {
+public final class HttpVersion {
 
-    // Static Providers
-
-    public static @NotNull HttpVersion HTTP_1_0 = new HttpVersion(1, 0);
     public static @NotNull HttpVersion HTTP_1_1 = new HttpVersion(1, 1);
 
     // Objects
@@ -54,4 +50,5 @@ public class HttpVersion {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
 }

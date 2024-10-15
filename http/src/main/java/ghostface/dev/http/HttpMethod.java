@@ -1,6 +1,4 @@
-package ghostface.dev.message;
-
-import org.jetbrains.annotations.NotNull;
+package ghostface.dev.http;
 
 public enum HttpMethod {
     DELETE,
@@ -10,5 +8,6 @@ public enum HttpMethod {
     PATCH,
     POST,
     PUT,
-    TRACE;
+    TRACE,
+    ;
 }

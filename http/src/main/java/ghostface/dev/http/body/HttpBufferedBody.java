@@ -1,4 +1,4 @@
-package ghostface.dev.body;
+package ghostface.dev.http.body;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,6 +23,10 @@ public final class HttpBufferedBody implements HttpBody {
         }
     }
 
+    public HttpBufferedBody(byte @NotNull [] bytes) {
+        this.bytes = bytes;
+    }
+
     @Override
     public void write(@NotNull OutputStream outputStream) throws IOException {
         @NotNull InputStream inputStream = getInputStream();
@@ -33,10 +37,6 @@ public final class HttpBufferedBody implements HttpBody {
             outputStream.write(bytes, 0, read);
             outputStream.flush();
         }
-    }
-
-    public HttpBufferedBody(byte @NotNull [] bytes) {
-        this.bytes = bytes;
     }
 
     @Override

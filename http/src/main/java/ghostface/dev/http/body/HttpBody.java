@@ -1,4 +1,4 @@
-package ghostface.dev.body;
+package ghostface.dev.http.body;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -8,6 +8,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public interface HttpBody extends Closeable {
+
+    static @NotNull HttpBody empty() {
+        return new HttpBufferedBody(new byte[0]);
+    }
 
     static @NotNull HttpBody create(@NotNull InputStream inputStream) throws IOException {
         if (inputStream.available() > 8192) {

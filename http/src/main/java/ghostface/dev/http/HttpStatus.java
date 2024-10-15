@@ -1,4 +1,4 @@
-package ghostface.dev.message;
+package ghostface.dev.http;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

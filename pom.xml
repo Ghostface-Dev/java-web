@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>http</module>
+        <module>api</module>
     </modules>
 
     <dependencies>
@@ -18,10 +19,17 @@
             <artifactId>annotations</artifactId>
             <version>24.1.0</version>
         </dependency>
+
         <dependency>
-            <groupId>codes.laivy</groupId>
-            <artifactId>java-serializable</artifactId>
-            <version>1.1</version>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.18.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.11.0</version>
         </dependency>
     </dependencies>
 
