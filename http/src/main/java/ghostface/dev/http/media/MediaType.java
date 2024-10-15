@@ -1,6 +1,6 @@
-package ghostface.dev.media;
+package ghostface.dev.http.media;
 
-import ghostface.dev.body.HttpBody;
+import ghostface.dev.http.body.HttpBody;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +30,12 @@ public interface MediaType<T> {
 
     @Override
     @NotNull String toString();
+
+    @Override
+    boolean equals(@Nullable Object object);
+
+    @Override
+    int hashCode();
 
     // Classes
 
