@@ -1,8 +1,8 @@
-package ghostface.dev.headers;
+package ghostface.dev.http.headers;
 
-import ghostface.dev.message.HttpName;
-import ghostface.dev.message.Target;
+import ghostface.dev.http.media.MediaType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -10,21 +10,31 @@ import java.util.stream.Stream;
 
 public final class HttpHeaders implements Collection<@NotNull HttpHeader<?>> {
 
-    private final @NotNull List<@NotNull HttpHeader<?>> headers = new LinkedList<>();
+    private final @NotNull Set<@NotNull HttpHeader<?>> headers = new LinkedHashSet<>();
 
     public HttpHeaders(@NotNull HttpHeader<?> @NotNull ... headers) {
         if (headers.length == 0) {
             throw new IllegalArgumentException("the headers array cannot be null");
         }
-        this.headers.addAll(List.of(headers));
+        this.headers.addAll(Set.of(headers));
     }
 
-    public @NotNull Optional<@NotNull HttpHeader<?>> getHeader(@NotNull HttpName httpName) {
-        return headers.stream().filter(header -> header.getName().equals(httpName)).findFirst();
+    public @NotNull Optional<@NotNull HttpHeader<?>> getHeader(@NotNull HttpHeaderKey httpName) {
+        return headers.stream().filter(header -> header.getKey().equals(httpName)).findFirst();
     }
 
     public @NotNull List<@NotNull HttpHeader<?>> getHeaders(@NotNull Target target) {
         return headers.stream().filter(header -> header.getTarget().equals(target)).toList();
+    }
+
+    public @NotNull Optional<@NotNull MediaType<?>> getMediaType() {
+        @Nullable HttpHeader<?> header = headers.stream().filter(httpHeader -> httpHeader.getValue() instanceof MediaType<?>).findFirst().orElse(null);
+
+        if (header != null) {
+            return Optional.of((MediaType<?>) header.getValue());
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -104,4 +114,5 @@ public final class HttpHeaders implements Collection<@NotNull HttpHeader<?>> {
     public Stream<@NotNull HttpHeader<?>> stream() {
         return headers.stream();
     }
+
 }
