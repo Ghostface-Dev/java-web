@@ -1,7 +1,7 @@
-package ghostface.dev.connection;
+package ghostface.dev.http.connection;
 
-import ghostface.dev.request.HttpRequest;
-import ghostface.dev.response.HttpResponse;
+import ghostface.dev.http.element.HttpRequest;
+import ghostface.dev.http.element.HttpResponse;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,4 +48,5 @@ public abstract class HttpServer implements Closeable {
     public abstract boolean start() throws IOException;
 
     public abstract @NotNull HttpResponse compute(@NotNull HttpRequest request);
+
 }
