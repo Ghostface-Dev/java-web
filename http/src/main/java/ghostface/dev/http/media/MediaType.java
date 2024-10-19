@@ -24,6 +24,8 @@ public interface MediaType<T> {
 
     @NotNull Parameter[] getParameters();
 
+    @NotNull MediaTypeParse<T> getParse();
+
     @NotNull T getData();
 
     @NotNull HttpBody getBody();
@@ -40,6 +42,8 @@ public interface MediaType<T> {
     // Classes
 
     final class Type {
+
+        public static @NotNull Type APPLICATION_JSON = new Type("application", "json");
 
         private final @NotNull String type;
         private final @NotNull String subtype;
@@ -79,6 +83,8 @@ public interface MediaType<T> {
     // Classes
 
     final class Parameter {
+
+        public static @NotNull Parameter UTF_8 = new Parameter("charset", "utf-8");
 
         private final @NotNull String key;
         private final @NotNull String value;
