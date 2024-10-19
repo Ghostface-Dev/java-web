@@ -4,48 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac9d0d8e-3201-4bc1-abbe-1aefa752b7bd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/element/HttpElement.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/element/HttpRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/element/HttpResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/exception/body/BodyException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/exception/header/HeaderException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/HttpHeaderKey.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/Target.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/impl/HttpRequestImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/impl/HttpResponseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/impl/headers/AbstractHttpHeader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/main/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/media/html/HtmlMediaType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/media/json/JsonMediaType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="ac9d0d8e-3201-4bc1-abbe-1aefa752b7bd" name="Changes" comment="improved code">
+      <change afterPath="$PROJECT_DIR$/api/src/main/java/ghostface/dev/api/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/connection/server/HttpServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/exception/FormatHttpException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/exception/MediaParseException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/media/MediaTypeParse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/http/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/body/HttpBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/body/HttpBody.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/body/HttpBufferedBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/body/HttpBufferedBody.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/body/HttpCacheBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/body/HttpCacheBody.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/connection/HttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/connection/HttpClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/connection/HttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/connection/HttpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/exception/HttpFormatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/exception/HttpFormatException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/headers/HttpHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/HttpHeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/headers/HttpHeaders.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/HttpHeaders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/impl/HttpRequestImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/impl/HttpResponseImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/impl/HttpUtilsImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/media/MediaType.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/media/MediaType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/media/json/JsonMediaType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/message/HttpMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/HttpMethod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/message/HttpName.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/message/HttpStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/HttpStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/request/HttpRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/response/HttpResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/util/HttpUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/version/HttpVersion.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/HttpVersion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/HttpMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/HttpMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/HttpVersion.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/HttpVersion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/body/HttpBufferedBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/body/HttpBufferedBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/body/HttpCacheBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/body/HttpCacheBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/connection/HttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/connection/client/HttpClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/connection/HttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/connection/AbstractHttpServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/exception/body/BodyException.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/exception/body/HttpBodyException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/exception/header/HeaderException.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/exception/header/HttpHeaderException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/HttpHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/HttpHeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/HttpHeaderKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/HttpHeaderKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/HttpHeaders.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/headers/HttpHeaders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/impl/HttpRequestImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/impl/HttpRequestImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/impl/HttpResponseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/impl/HttpResponseImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/impl/headers/AbstractHttpHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/impl/headers/SimpleHttpHeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/media/MediaType.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/media/MediaType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/media/html/HtmlMediaType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/media/json/JsonMediaType.java" beforeDir="false" afterPath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/media/json/JsonMediaType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/src/main/java/ghostface/dev/http/utils/RequestUtils.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,8 +40,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -80,7 +65,9 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "C:/Users/gkill/Documents/GitHub/java/java-web/http/src/main/java/ghostface/dev/http/main/Main.java"
+    "last_opened_file_path": "C:/Users/gkill/Documents/Laivy/jhttp-master",
+    "onboarding.tips.debug.path": "C:/Users/gkill/Documents/GitHub/java/java-web/http/src/main/java/ghostface/dev/http/main/Main.java",
+    "settings.editor.selected.configurable": "io.github.pandier.intellijdiscordrp.settings.DiscordSettingsConfigurable"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -108,12 +95,66 @@
       <option name="project" value="LOCAL" />
       <updated>1728877063603</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added exceptions">
+      <option name="closed" value="true" />
+      <created>1728965710485</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728965710485</updated>
+    </task>
+    <task id="LOCAL-00004" summary="improved connection">
+      <option name="closed" value="true" />
+      <created>1728966558299</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728966558299</updated>
+    </task>
+    <task id="LOCAL-00005" summary="improved media types">
+      <option name="closed" value="true" />
+      <created>1728966585722</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728966585722</updated>
+    </task>
+    <task id="LOCAL-00006" summary="improved system and add HttpElement">
+      <option name="closed" value="true" />
+      <created>1728966640149</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728966640149</updated>
+    </task>
+    <task id="LOCAL-00007" summary="improved headers">
+      <option name="closed" value="true" />
+      <created>1728966676020</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728966676020</updated>
+    </task>
+    <task id="LOCAL-00008" summary="improved code">
+      <option name="closed" value="true" />
+      <created>1728966699650</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1728966699650</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="improved bodies" />
     <MESSAGE value="improved system" />
-    <option name="LAST_COMMIT_MESSAGE" value="improved system" />
+    <MESSAGE value="added exceptions" />
+    <MESSAGE value="improved connection" />
+    <MESSAGE value="improved media types" />
+    <MESSAGE value="improved system and add HttpElement" />
+    <MESSAGE value="improved headers" />
+    <MESSAGE value="improved code" />
+    <option name="LAST_COMMIT_MESSAGE" value="improved code" />
   </component>
 </project>

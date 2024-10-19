@@ -3,11 +3,18 @@ package ghostface.dev.http;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+
 import java.util.Objects;
+import java.util.Optional;
 
 public final class HttpVersion {
 
     public static @NotNull HttpVersion HTTP_1_1 = new HttpVersion(1, 1);
+
+    public static @Nullable HttpVersion parse(@NotNull String string) {
+        @NotNull Optional<@NotNull HttpVersion> optional = string.equalsIgnoreCase(HTTP_1_1.getId()) ? Optional.of(HTTP_1_1) : Optional.empty();
+        return optional.orElse(null);
+    }
 
     // Objects
 

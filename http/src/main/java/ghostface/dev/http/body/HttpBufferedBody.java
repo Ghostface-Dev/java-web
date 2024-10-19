@@ -29,13 +29,16 @@ public final class HttpBufferedBody implements HttpBody {
 
     @Override
     public void write(@NotNull OutputStream outputStream) throws IOException {
-        @NotNull InputStream inputStream = getInputStream();
-        byte[] bytes = new byte[4096]; // 4kb
+        if (close) {
+            throw new IOException("Body is closed");
+        } else try (@NotNull InputStream inputStream = getInputStream()) {
+            byte[] bytes = new byte[4096]; // 4kb
 
-        int read;
-        while ((read = inputStream.read(bytes)) != -1) {
-            outputStream.write(bytes, 0, read);
-            outputStream.flush();
+            int read;
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+                outputStream.flush();
+            }
         }
     }
 

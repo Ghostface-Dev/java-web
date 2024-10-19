@@ -1,5 +1,6 @@
 package ghostface.dev.http;
 
+
 public enum HttpMethod {
     DELETE,
     GET,

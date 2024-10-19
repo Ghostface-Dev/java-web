@@ -46,13 +46,16 @@ public final class HttpCacheBody implements HttpBody {
 
     @Override
     public void write(@NotNull OutputStream outputStream) throws IOException {
-        @NotNull InputStream inputStream = getInputStream();
-        byte[] bytes = new byte[8192]; // 8kb
+        if (close) {
+            throw new IOException("Body is closed");
+        } else try (@NotNull InputStream inputStream = getInputStream()) {
+            byte[] bytes = new byte[8192]; // 8kb
 
-        int read;
-        while ((read = inputStream.read(bytes)) != -1) {
-            outputStream.write(bytes, 0, read);
-            outputStream.flush();
+            int read;
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+                outputStream.flush();
+            }
         }
     }
 

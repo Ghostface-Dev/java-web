@@ -11,15 +11,21 @@ import java.util.stream.Stream;
 public final class HttpHeaders implements Collection<@NotNull HttpHeader<?>> {
 
     private final @NotNull Set<@NotNull HttpHeader<?>> headers = new LinkedHashSet<>();
+    private final @NotNull Target target;
 
-    public HttpHeaders(@NotNull HttpHeader<?> @NotNull ... headers) {
+    public HttpHeaders(@NotNull Target target, @NotNull HttpHeader<?> @NotNull ... headers) {
         if (headers.length == 0) {
             throw new IllegalArgumentException("the headers array cannot be null");
         }
+        this.target = target;
         this.headers.addAll(Set.of(headers));
     }
 
-    public @NotNull Optional<@NotNull HttpHeader<?>> getHeader(@NotNull HttpHeaderKey httpName) {
+    public @NotNull Target getTarget() {
+        return target;
+    }
+
+    public @NotNull Optional<@NotNull HttpHeader<?>> getHeader(@NotNull HttpHeaderName httpName) {
         return headers.stream().filter(header -> header.getKey().equals(httpName)).findFirst();
     }
 
@@ -52,27 +58,34 @@ public final class HttpHeaders implements Collection<@NotNull HttpHeader<?>> {
         return headers.contains(o);
     }
 
-    @NotNull
+
     @Override
-    public Iterator<@NotNull HttpHeader<?>> iterator() {
+    public @NotNull Iterator<@NotNull HttpHeader<?>> iterator() {
         return headers.iterator();
     }
 
-    @NotNull
     @Override
-    public Object @NotNull [] toArray() {
+    public @NotNull Object @NotNull [] toArray() {
         return headers.toArray();
     }
 
-    @NotNull
     @Override
-    public <T> T @NotNull [] toArray(@NotNull T[] a) {
+    public <T> @NotNull T @NotNull [] toArray(@NotNull T[] a) {
         return headers.toArray(a);
     }
 
+    public boolean put(@NotNull HttpHeader<?> header) {
+        remove(header);
+        return add(header);
+    }
+
     @Override
-    public boolean add(@NotNull HttpHeader<?> httpHeader) {
-        return headers.add(httpHeader);
+    public boolean add(@NotNull HttpHeader<?> header) {
+        if ((target.isRequest() && !header.getTarget().isRequest()) || (target.isResponse() && !header.getTarget().isResponse())) {
+            return false;
+        } else {
+            return headers.add(header);
+        }
     }
 
     @Override
