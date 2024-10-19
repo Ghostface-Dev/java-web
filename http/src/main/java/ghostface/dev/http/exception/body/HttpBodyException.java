@@ -2,13 +2,13 @@ package ghostface.dev.http.exception.body;
 
 import ghostface.dev.http.exception.HttpException;
 
-public class BodyException extends HttpException {
+public class HttpBodyException extends HttpException {
 
-    public BodyException(String message) {
+    public HttpBodyException(String message) {
         super(message);
     }
 
-    public BodyException(String message, Throwable cause) {
+    public HttpBodyException(String message, Throwable cause) {
         super(message, cause);
     }
 }
