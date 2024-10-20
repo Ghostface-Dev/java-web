@@ -6,31 +6,39 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class HttpHeaders implements Collection<@NotNull HttpHeader<?>> {
 
-    private final @NotNull Set<@NotNull HttpHeader<?>> headers = new LinkedHashSet<>();
+    private final @NotNull Set<@NotNull HttpHeader<?>> headers;
     private final @NotNull Target target;
 
     public HttpHeaders(@NotNull Target target, @NotNull HttpHeader<?> @NotNull ... headers) {
         if (headers.length == 0) {
             throw new IllegalArgumentException("the headers array cannot be null");
         }
+
+        for (@NotNull HttpHeader<?> header : headers) {
+            if (header.getTarget() != target) {
+                throw new IllegalArgumentException("Header targets do not match");
+            }
+        }
+
         this.target = target;
-        this.headers.addAll(Set.of(headers));
+        this.headers = Arrays.stream(headers).collect(Collectors.toSet());
     }
 
     public @NotNull Target getTarget() {
         return target;
     }
 
-    public @NotNull Optional<@NotNull HttpHeader<?>> getHeader(@NotNull HttpHeaderName httpName) {
+    public @NotNull Optional<@NotNull HttpHeader<?>> getHeader(@NotNull HttpHeaderName<?> httpName) {
         return headers.stream().filter(header -> header.getKey().equals(httpName)).findFirst();
     }
 
     public @NotNull List<@NotNull HttpHeader<?>> getHeaders(@NotNull Target target) {
-        return headers.stream().filter(header -> header.getTarget().equals(target)).toList();
+        return headers.stream().filter(header -> header.getTarget().equals(target)).collect(Collectors.toList());
     }
 
     public @NotNull Optional<@NotNull MediaType<?>> getMediaType() {
@@ -81,7 +89,7 @@ public final class HttpHeaders implements Collection<@NotNull HttpHeader<?>> {
 
     @Override
     public boolean add(@NotNull HttpHeader<?> header) {
-        if ((target.isRequest() && !header.getTarget().isRequest()) || (target.isResponse() && !header.getTarget().isResponse())) {
+        if (header.getTarget() != getTarget()) {
             return false;
         } else {
             return headers.add(header);
