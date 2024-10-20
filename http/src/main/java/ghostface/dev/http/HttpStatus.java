@@ -128,6 +128,11 @@ public final class HttpStatus {
         return message;
     }
 
+    @Override
+    public @NotNull String toString() {
+        return getCode() + " " + getMessage();
+    }
+
     // Natives
 
     @Override

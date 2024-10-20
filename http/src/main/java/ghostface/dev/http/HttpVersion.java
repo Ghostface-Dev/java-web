@@ -2,11 +2,9 @@ package ghostface.dev.http;
 
 import ghostface.dev.http.exception.version.HttpVersionException;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 
 import java.util.Objects;
-import java.util.Optional;
 
 public final class HttpVersion {
 
@@ -25,12 +23,10 @@ public final class HttpVersion {
 
     private final int major;
     private final int minor;
-    private final @NotNull String id;
 
     public HttpVersion(int major, int minor) {
         this.major = major;
         this.minor = minor;
-        this.id = "HTTP/" + major + "." + minor;
     }
 
     public int getMajor() {
@@ -41,26 +37,21 @@ public final class HttpVersion {
         return minor;
     }
 
-    public @NotNull String getId() {
-        return id;
+    @Override
+    public @NotNull String toString() {
+        return "HTTP/" + getMajor() + "." + getMinor();
     }
 
     @Override
-    public String toString() {
-        return id;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        @NotNull HttpVersion that = (HttpVersion) object;
-        return Objects.equals(id, that.id);
+        HttpVersion version = (HttpVersion) object;
+        return major == version.major && minor == version.minor;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(major, minor);
     }
-
 }

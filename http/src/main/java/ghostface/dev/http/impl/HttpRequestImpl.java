@@ -5,6 +5,7 @@ import ghostface.dev.http.HttpVersion;
 import ghostface.dev.http.body.HttpBody;
 import ghostface.dev.http.element.HttpRequest;
 import ghostface.dev.http.exception.header.HttpHeaderException;
+import ghostface.dev.http.headers.HttpHeader;
 import ghostface.dev.http.headers.HttpHeaders;
 import ghostface.dev.http.headers.Target;
 import ghostface.dev.http.media.MediaType;
@@ -20,7 +21,11 @@ public class HttpRequestImpl implements HttpRequest {
     private final @NotNull HttpHeaders headers;
     private final @NotNull HttpBody body;
 
-    public HttpRequestImpl(@NotNull HttpMethod method, @NotNull URI uri, @NotNull HttpHeaders headers) throws HttpHeaderException {
+    public HttpRequestImpl(
+            @NotNull HttpMethod method,
+            @NotNull URI uri,
+            @NotNull HttpHeaders headers
+    ) throws HttpHeaderException {
         this.version = HttpVersion.HTTP_1_1;
         this.method = method;
         this.uri = uri;
@@ -32,6 +37,22 @@ public class HttpRequestImpl implements HttpRequest {
         }
     }
 
+    public HttpRequestImpl(
+            @NotNull HttpMethod method,
+            @NotNull URI uri,
+            @NotNull HttpHeaders headers,
+            @NotNull HttpBody body
+    ) throws HttpHeaderException {
+        this.version = HttpVersion.HTTP_1_1;
+        this.method = method;
+        this.uri = uri;
+        this.headers = headers;
+        this.body = body;
+
+        if (headers.getTarget() == Target.RESPONSE) {
+            throw new HttpHeaderException("Header Targets do not match");
+        }
+    }
 
     @Override
     public @NotNull HttpMethod getMethod() {

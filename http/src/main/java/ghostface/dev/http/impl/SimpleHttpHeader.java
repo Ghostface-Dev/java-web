@@ -1,5 +1,6 @@
 package ghostface.dev.http.impl;
 
+import ghostface.dev.http.exception.header.HttpHeaderException;
 import ghostface.dev.http.headers.HttpHeader;
 import ghostface.dev.http.headers.HttpHeaderName;
 import ghostface.dev.http.headers.Target;
@@ -12,8 +13,8 @@ import java.util.Objects;
 public class SimpleHttpHeader<T> implements HttpHeader<T> {
 
     private final @NotNull HttpHeaderName<T> key;
-    private final @UnknownNullability T value;
     private final @NotNull Target target;
+    private @UnknownNullability T value;
 
     public SimpleHttpHeader(@NotNull HttpHeaderName<T> key, @UnknownNullability T value, @NotNull Target target) {
         if (key.target() != target) {
@@ -32,6 +33,11 @@ public class SimpleHttpHeader<T> implements HttpHeader<T> {
     @Override
     public @UnknownNullability T getValue() {
         return value;
+    }
+
+    @Override
+    public void setValue(T value) {
+        this.value = value;
     }
 
     @Override
