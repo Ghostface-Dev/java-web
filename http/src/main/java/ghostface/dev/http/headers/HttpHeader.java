@@ -1,6 +1,7 @@
 package ghostface.dev.http.headers;
 
 
+import ghostface.dev.http.exception.header.HttpHeaderException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
@@ -12,6 +13,8 @@ public interface HttpHeader<T> {
 
     @UnknownNullability T getValue();
 
+    void setValue(T value);
+
     @NotNull Target getTarget();
 
     @Override
@@ -19,4 +22,8 @@ public interface HttpHeader<T> {
 
     @Override
     int hashCode();
+
+    default @NotNull String getAsString() {
+        return getKey().serialize(this);
+    }
 }

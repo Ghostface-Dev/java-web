@@ -87,7 +87,7 @@ public abstract class HttpHeaderName<T> {
 
     public abstract @NotNull HttpHeader<T> parse(@NotNull String string) throws HttpHeaderException;
 
-    public abstract @NotNull String serialize(@NotNull HttpHeader<T> header, @NotNull Parameter @NotNull ... parameters) throws HttpHeaderException;
+    public abstract @NotNull String serialize(@NotNull HttpHeader<T> header, @NotNull Parameter @NotNull ... parameters);
 
     @Override
     public String toString() {
@@ -104,7 +104,7 @@ public abstract class HttpHeaderName<T> {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hash(name, target);
     }
 
     // Providers
@@ -123,7 +123,7 @@ public abstract class HttpHeaderName<T> {
             // Content type classes
             private static final class ContentJson extends ContentType<@NotNull JsonElement> {
                 private ContentJson() {
-                    super("content-type", Target.BOTH);
+                    super("Content-type", Target.BOTH);
                 }
 
                 @Override
@@ -131,17 +131,17 @@ public abstract class HttpHeaderName<T> {
                     @NotNull String[] parts = string.split("\\s*:\\s");
 
                     try {
-                        if (parts.length != 2) {
-                            throw new Exception();
-                        } else if (!parts[0].equalsIgnoreCase(this.name())) {
-                            throw new Exception();
-                        } else if (!parts[1].contains(MediaType.Type.APPLICATION_JSON.toString())) {
-                            throw new Exception();
+                        if (parts.length > 2) {
+                            throw new HttpHeaderException("Too many parts in header");
+                        } else if (parts.length == 2 && !parts[0].equalsIgnoreCase(this.name())) {;
+                            throw new HttpHeaderException("Header name does not match");
+                        } else if (!string.contains(MediaType.Type.APPLICATION_JSON.toString())) {
+                            throw new HttpHeaderException("Media type is not JSON");
                         } else {
                             return new SimpleHttpHeader<>(this, null, Target.BOTH);
                         }
-                    } catch (@NotNull Throwable throwable) {
-                        throw new HttpHeaderException("The string '" + string + "' is not a valid Content-type for JSON");
+                    } catch (@NotNull HttpHeaderException e) {
+                        throw new HttpHeaderException("The string '" + string + "' is not a valid Content-type for JSON: " + e.getMessage());
                     }
                 }
 
@@ -149,15 +149,13 @@ public abstract class HttpHeaderName<T> {
                 public @NotNull String serialize(
                         @NotNull HttpHeader<@NotNull MediaType<@NotNull JsonElement>> header,
                         @NotNull Parameter @NotNull ... parameters
-                )
-                        throws HttpHeaderException
-                {
+                ) {
                     @NotNull StringJoiner joiner = new StringJoiner("; ");
                     joiner.add(name() + ": " + "application/json");
                     for (@NotNull Parameter parameter : parameters) {
                         joiner.add(parameter.toString());
                     }
-                    return  joiner + "\r\n";
+                    return joiner.toString();
                 }
             }
 
@@ -193,11 +191,9 @@ public abstract class HttpHeaderName<T> {
             public @NotNull String serialize(
                     @NotNull HttpHeader<@NotNull Integer> contentLength,
                     @NotNull Parameter @NotNull ... parameters
-            )
-                    throws HttpHeaderException
-            {
+            ) {
                 if (contentLength.getValue() < 0) {
-                    throw new HttpHeaderException("Content-Length has illegal values");
+                    throw new RuntimeException("Content-Length has illegal values");
                 } else {
                     return name() + ": " + contentLength.getValue();
                 }
@@ -233,7 +229,7 @@ public abstract class HttpHeaderName<T> {
             }
 
             @Override
-            public @NotNull String serialize(@NotNull HttpHeader<@NotNull Boolean> header, @NotNull Parameter @NotNull ... parameters) throws HttpHeaderException {
+            public @NotNull String serialize(@NotNull HttpHeader<@NotNull Boolean> header, @NotNull Parameter @NotNull ... parameters) {
                 return this.name() + ": " + (header.getValue() ? "keep-alive" : "close");
             }
         }
