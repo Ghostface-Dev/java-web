@@ -1,5 +1,6 @@
 package ghostface.dev.http;
 
+import ghostface.dev.http.exception.version.HttpVersionException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -10,10 +11,14 @@ import java.util.Optional;
 public final class HttpVersion {
 
     public static @NotNull HttpVersion HTTP_1_1 = new HttpVersion(1, 1);
+    public static @NotNull HttpVersion HTTP_1_0 = new HttpVersion(1, 1);
 
-    public static @Nullable HttpVersion parse(@NotNull String string) {
-        @NotNull Optional<@NotNull HttpVersion> optional = string.equalsIgnoreCase(HTTP_1_1.getId()) ? Optional.of(HTTP_1_1) : Optional.empty();
-        return optional.orElse(null);
+    public static @NotNull HttpVersion parse(@NotNull String string) throws HttpVersionException {
+        if (!string.toUpperCase().matches("^HTTP/(1\\.1|1\\.0)$")) {
+            throw new HttpVersionException("Cannot parse the string '" + string + "' as a valid http version");
+        } else {
+            return new HttpVersion(1, Integer.parseInt(String.valueOf(string.toCharArray()[7])));
+        }
     }
 
     // Objects
@@ -22,9 +27,9 @@ public final class HttpVersion {
     private final int minor;
     private final @NotNull String id;
 
-    public HttpVersion(int minor, int major) {
-        this.minor = minor;
+    public HttpVersion(int major, int minor) {
         this.major = major;
+        this.minor = minor;
         this.id = "HTTP/" + major + "." + minor;
     }
 
