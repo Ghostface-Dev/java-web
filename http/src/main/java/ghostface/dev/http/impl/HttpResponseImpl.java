@@ -23,8 +23,8 @@ public class HttpResponseImpl implements HttpResponse {
         this.headers = headers;
         this.body = headers.getMediaType().map(MediaType::getBody).orElse(HttpBody.empty());
 
-        if (headers.getTarget() == Target.REQUEST) {
-            throw new HttpHeaderException("Headers contains Http response Header");
+        if (headers.getTarget() != Target.RESPONSE) {
+            throw new HttpHeaderException("Header Targets do not match");
         }
     }
 

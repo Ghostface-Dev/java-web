@@ -28,7 +28,7 @@ public class HttpRequestImpl implements HttpRequest {
         this.body = headers.getMediaType().map(MediaType::getBody).orElse(HttpBody.empty());
 
         if (headers.getTarget() == Target.RESPONSE) {
-            throw new HttpHeaderException("Headers contains Http response Header");
+            throw new HttpHeaderException("Header Targets do not match");
         }
     }
 
