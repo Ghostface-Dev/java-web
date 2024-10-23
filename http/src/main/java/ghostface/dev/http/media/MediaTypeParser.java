@@ -6,7 +6,7 @@ import ghostface.dev.http.media.MediaType.Parameter;
 
 import java.io.InputStream;
 
-public interface MediaTypeParse<T> {
+public interface MediaTypeParser<T> {
 
     @NotNull T deserialize(@NotNull InputStream stream) throws MediaParserException;
 
