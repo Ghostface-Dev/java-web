@@ -4,7 +4,7 @@ import com.google.gson.*;
 import ghostface.dev.http.body.HttpBody;
 import ghostface.dev.http.exception.media.MediaParserException;
 import ghostface.dev.http.media.MediaType;
-import ghostface.dev.http.media.MediaTypeParse;
+import ghostface.dev.http.media.MediaTypeParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public final class JsonMediaType extends MediaType<@NotNull JsonElement> {
 
-    public static final @NotNull MediaTypeParse<@NotNull JsonElement> parser = new Parser();
+    public static final @NotNull MediaTypeParser<@NotNull JsonElement> parser = new Parser();
 
     // Objects
 
@@ -24,13 +24,13 @@ public final class JsonMediaType extends MediaType<@NotNull JsonElement> {
     }
 
     @Override
-    public @NotNull MediaTypeParse<@NotNull JsonElement> getParser() {
+    public @NotNull MediaTypeParser<@NotNull JsonElement> getParser() {
         return parser;
     }
 
     // Parser
 
-    private static final class Parser implements MediaTypeParse<@NotNull JsonElement> {
+    private static final class Parser implements MediaTypeParser<@NotNull JsonElement> {
 
         @Override
         public @NotNull JsonElement deserialize(@NotNull InputStream stream) throws MediaParserException {
