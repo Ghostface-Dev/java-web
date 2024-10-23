@@ -10,7 +10,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>http</module>
-        <module>api</module>
+        <module>server</module>
+        <module>database</module>
     </modules>
 
     <dependencies>

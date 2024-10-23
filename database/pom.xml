@@ -9,16 +9,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>server</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>ghostface.dev</groupId>
-            <artifactId>http</artifactId>
-            <version>1.0</version>
-        </dependency>
-    </dependencies>
-
+    <artifactId>database</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
