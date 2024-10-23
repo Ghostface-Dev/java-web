@@ -71,7 +71,7 @@ public interface MediaType<T> {
             if (this == object) return true;
             if (object == null || getClass() != object.getClass()) return false;
             @NotNull Type type1 = (Type) object;
-            return Objects.equals(type, type1.type) && Objects.equals(subtype, type1.subtype);
+            return this.toString().equalsIgnoreCase(type1.toString());
         }
 
         @Override
@@ -90,8 +90,8 @@ public interface MediaType<T> {
         private final @NotNull String value;
 
         public Parameter(@NotNull String key, @NotNull String value) {
-            this.key = key.toLowerCase();
-            this.value = value.toLowerCase();
+            this.key = key;
+            this.value = value;
 
             if (key.contains(";") || key.contains(",") || value.contains(";") || value.contains(",")) {
                 throw new IllegalArgumentException("content type parameter key or value contains illegal caracteres");
@@ -116,12 +116,12 @@ public interface MediaType<T> {
             if (this == object) return true;
             if (object == null || getClass() != object.getClass()) return false;
             @NotNull Parameter parameter = (Parameter) object;
-            return Objects.equals(key, parameter.key) && Objects.equals(value, parameter.value);
+            return this.toString().equalsIgnoreCase(parameter.toString());
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(key, value);
+            return Objects.hash(key.toLowerCase(), value.toLowerCase());
         }
     }
 }
