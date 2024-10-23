@@ -4,10 +4,11 @@ import ghostface.dev.http.body.HttpBody;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public interface MediaType<T> {
+public abstract class MediaType<T> {
 
     static @NotNull String getString(@NotNull MediaType<?> mediaType) {
         @NotNull StringJoiner joiner = new StringJoiner("; ");
@@ -20,28 +21,59 @@ public interface MediaType<T> {
         return joiner.toString();
     }
 
-    @NotNull Type getType();
+    // Objects
 
-    @NotNull Parameter[] getParameters();
+    private final @NotNull Type type;
+    private final @NotNull Parameter[] parameters;
+    private final @NotNull T data;
+    private final @NotNull HttpBody body;
 
-    @NotNull MediaTypeParse<T> getParse();
+    protected MediaType(@NotNull Type type, @NotNull T data, @NotNull HttpBody body, @NotNull Parameter[] parameters) {
+        this.type = type;
+        this.parameters = parameters;
+        this.data = data;
+        this.body = body;
+    }
 
-    @NotNull T getData();
+    public @NotNull Type getType() {
+        return type;
+    }
 
-    @NotNull HttpBody getBody();
+    public @NotNull Parameter[] getParameters() {
+        return parameters;
+    }
+
+    public abstract @NotNull MediaTypeParse<T> getParser();
+
+    public @NotNull T getData() {
+        return data;
+    }
+
+    public @NotNull HttpBody getBody() {
+        return body;
+    }
 
     @Override
-    @NotNull String toString();
+    public @NotNull String toString() {
+        return getString(this);
+    }
 
     @Override
-    boolean equals(@Nullable Object object);
+    public final boolean equals(@Nullable Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        @NotNull MediaType<?> mediaType = (MediaType<?>) object;
+        return Objects.equals(type, mediaType.type) && Objects.deepEquals(parameters, mediaType.parameters);
+    }
 
     @Override
-    int hashCode();
+    public final int hashCode() {
+        return Objects.hash(type, Arrays.hashCode(parameters));
+    }
 
     // Classes
 
-    final class Type {
+    public static final class Type {
 
         public static @NotNull Type APPLICATION_JSON = new Type("application", "json");
 
@@ -76,13 +108,13 @@ public interface MediaType<T> {
 
         @Override
         public int hashCode() {
-            return Objects.hash(type, subtype);
+            return Objects.hash(type.toLowerCase(), subtype.toLowerCase());
         }
     }
 
     // Classes
 
-    final class Parameter {
+    public static final class Parameter {
 
         public static @NotNull Parameter UTF_8 = new Parameter("charset", "utf-8");
 
