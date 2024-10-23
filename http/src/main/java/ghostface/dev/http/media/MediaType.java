@@ -43,7 +43,7 @@ public abstract class MediaType<T> {
         return parameters;
     }
 
-    public abstract @NotNull MediaTypeParse<T> getParser();
+    public abstract @NotNull MediaTypeParser<T> getParser();
 
     public @NotNull T getData() {
         return data;
