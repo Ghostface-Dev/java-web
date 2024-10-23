@@ -4,8 +4,7 @@ import ghostface.dev.http.HttpMethod;
 import ghostface.dev.http.HttpVersion;
 import ghostface.dev.http.body.HttpBody;
 import ghostface.dev.http.element.HttpRequest;
-import ghostface.dev.http.exception.header.HttpHeaderException;
-import ghostface.dev.http.headers.HttpHeader;
+import ghostface.dev.http.exception.target.IllegalTargetException;
 import ghostface.dev.http.headers.HttpHeaders;
 import ghostface.dev.http.headers.Target;
 import ghostface.dev.http.media.MediaType;
@@ -25,7 +24,7 @@ public class HttpRequestImpl implements HttpRequest {
             @NotNull HttpMethod method,
             @NotNull URI uri,
             @NotNull HttpHeaders headers
-    ) throws HttpHeaderException {
+    ) {
         this.version = HttpVersion.HTTP_1_1;
         this.method = method;
         this.uri = uri;
@@ -33,16 +32,16 @@ public class HttpRequestImpl implements HttpRequest {
         this.body = headers.getMediaType().map(MediaType::getBody).orElse(HttpBody.empty());
 
         if (headers.getTarget() == Target.RESPONSE) {
-            throw new HttpHeaderException("Header Targets do not match");
+            throw new IllegalTargetException("Header Targets do not match");
         }
     }
 
-    public HttpRequestImpl(
+    public HttpRequestImpl (
             @NotNull HttpMethod method,
             @NotNull URI uri,
             @NotNull HttpHeaders headers,
             @NotNull HttpBody body
-    ) throws HttpHeaderException {
+    ) {
         this.version = HttpVersion.HTTP_1_1;
         this.method = method;
         this.uri = uri;
@@ -50,7 +49,7 @@ public class HttpRequestImpl implements HttpRequest {
         this.body = body;
 
         if (headers.getTarget() == Target.RESPONSE) {
-            throw new HttpHeaderException("Header Targets do not match");
+            throw new IllegalTargetException("Header Targets do not match");
         }
     }
 
@@ -78,4 +77,5 @@ public class HttpRequestImpl implements HttpRequest {
     public @NotNull HttpBody getBody() {
         return body;
     }
+
 }

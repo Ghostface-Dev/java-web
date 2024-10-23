@@ -1,9 +1,12 @@
 package ghostface.dev.http.impl;
 
-import ghostface.dev.http.exception.header.HttpHeaderException;
+import com.google.gson.JsonElement;
+import ghostface.dev.http.body.HttpBody;
 import ghostface.dev.http.headers.HttpHeader;
 import ghostface.dev.http.headers.HttpHeaderName;
 import ghostface.dev.http.headers.Target;
+import ghostface.dev.http.media.MediaType;
+import ghostface.dev.http.media.json.JsonMediaType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
@@ -12,11 +15,15 @@ import java.util.Objects;
 
 public class SimpleHttpHeader<T> implements HttpHeader<T> {
 
+    public static @NotNull HttpHeader<@NotNull MediaType<@NotNull JsonElement>> JsonHeader(@NotNull JsonElement element, @NotNull HttpBody body) {
+        return new Provider.JsonHeader(element, body);
+    }
+
     private final @NotNull HttpHeaderName<T> key;
     private final @NotNull Target target;
     private @UnknownNullability T value;
 
-    public SimpleHttpHeader(@NotNull HttpHeaderName<T> key, @UnknownNullability T value, @NotNull Target target) {
+    public SimpleHttpHeader(HttpHeaderName<T> key, @UnknownNullability T value, @NotNull Target target) {
         if (key.target() != target) {
             throw new IllegalArgumentException("Header and name target do not match");
         }
@@ -56,5 +63,15 @@ public class SimpleHttpHeader<T> implements HttpHeader<T> {
     @Override
     public int hashCode() {
         return Objects.hashCode(key);
+    }
+
+    private static final class Provider {
+
+        private static final class JsonHeader extends SimpleHttpHeader<@NotNull MediaType<@NotNull JsonElement>> {
+            public JsonHeader(@NotNull JsonElement json, @NotNull HttpBody body) {
+                super(HttpHeaderName.JSON_CONTENT, new JsonMediaType(json, body), Target.BOTH);
+            }
+        }
+
     }
 }

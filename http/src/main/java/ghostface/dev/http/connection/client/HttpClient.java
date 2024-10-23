@@ -5,13 +5,17 @@ import ghostface.dev.http.element.HttpRequest;
 import ghostface.dev.http.element.HttpResponse;
 import ghostface.dev.http.exception.HttpException;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.UnknownNullability;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.net.Socket;
 
 public interface HttpClient extends Closeable {
 
-    @NotNull HttpRequest read() throws HttpException, IOException;
+    @NotNull Socket getSocket();
+
+    @UnknownNullability HttpRequest read() throws HttpException, IOException;
 
     void write(@NotNull HttpResponse response) throws IOException;
 

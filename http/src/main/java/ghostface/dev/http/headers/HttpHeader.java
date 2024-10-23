@@ -1,7 +1,6 @@
 package ghostface.dev.http.headers;
 
 
-import ghostface.dev.http.exception.header.HttpHeaderException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;

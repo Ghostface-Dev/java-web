@@ -1,5 +1,6 @@
 package ghostface.dev.http.headers;
 
+import com.google.gson.JsonElement;
 import ghostface.dev.http.media.MediaType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,11 +34,14 @@ public final class HttpHeaders implements Iterable<HttpHeader<?>> {
     public @NotNull Optional<MediaType<?>> getMediaType() {
         @Nullable HttpHeader<?> header = headers.stream().filter(httpHeader -> httpHeader.getValue() instanceof MediaType<?>).findFirst().orElse(null);
 
-        if (header != null) {
-            return Optional.of((MediaType<?>) header.getValue());
-        } else {
-            return Optional.empty();
-        }
+        return Optional.ofNullable((MediaType<?>) header);
+    }
+
+    @SuppressWarnings("unchecked")
+    public @NotNull Optional<MediaType<JsonElement>> getJsonMediaType() {
+        @Nullable MediaType<?> mediaType = getMediaType().orElse(null);
+
+        return mediaType != null && mediaType.getData() instanceof JsonElement ? Optional.of((MediaType<JsonElement>) mediaType) : Optional.empty();
     }
 
     public @NotNull Target getTarget() {
@@ -67,7 +71,7 @@ public final class HttpHeaders implements Iterable<HttpHeader<?>> {
     }
 
     public boolean add(@NotNull HttpHeader<?> header) {
-        if (header.getTarget() != getTarget()) {
+        if (header.getTarget() != Target.BOTH && header.getTarget() != getTarget()) {
             return false;
         } else {
             return headers.add(header);

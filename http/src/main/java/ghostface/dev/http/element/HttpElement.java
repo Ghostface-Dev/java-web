@@ -12,5 +12,4 @@ public interface HttpElement {
     @NotNull HttpHeaders getHeaders();
 
     @NotNull HttpBody getBody();
-
 }
