@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="http" />
         <module name="server" />
+        <module name="database" />
       </profile>
     </annotationProcessing>
   </component>
