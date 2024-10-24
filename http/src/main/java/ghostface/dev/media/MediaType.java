@@ -4,6 +4,7 @@ import ghostface.dev.body.HttpBody;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -28,7 +29,7 @@ public abstract class MediaType<T> {
     private final @NotNull T data;
     private final @NotNull HttpBody body;
 
-    protected MediaType(@NotNull Type type, @NotNull T data, @NotNull HttpBody body, @NotNull Parameter[] parameters) {
+    protected MediaType(@NotNull Type type, @NotNull T data, @NotNull HttpBody body, @NotNull Parameter @NotNull ... parameters) {
         this.type = type;
         this.parameters = parameters;
         this.data = data;
@@ -81,8 +82,8 @@ public abstract class MediaType<T> {
         private final @NotNull String subtype;
 
         public Type(@NotNull String type, @NotNull String subtype) {
-            this.type = type.toLowerCase();
-            this.subtype = subtype.toLowerCase();
+            this.type = type;
+            this.subtype = subtype;
         }
 
         public @NotNull String getType() {
@@ -102,8 +103,8 @@ public abstract class MediaType<T> {
         public boolean equals(@Nullable Object object) {
             if (this == object) return true;
             if (object == null || getClass() != object.getClass()) return false;
-            @NotNull Type type1 = (Type) object;
-            return this.toString().equalsIgnoreCase(type1.toString());
+            @NotNull Type that = (Type) object;
+            return this.type.equalsIgnoreCase(that.type) && this.subtype.equalsIgnoreCase(that.subtype);
         }
 
         @Override
@@ -116,7 +117,8 @@ public abstract class MediaType<T> {
 
     public static final class Parameter {
 
-        public static @NotNull Parameter UTF_8 = new Parameter("charset", "utf-8");
+        public static @NotNull Parameter UTF_8 = new Parameter("charset", "UTF-8");
+        public static @NotNull Parameter NULL = new Parameter("", "");
 
         private final @NotNull String key;
         private final @NotNull String value;
@@ -147,8 +149,8 @@ public abstract class MediaType<T> {
         public boolean equals(@Nullable Object object) {
             if (this == object) return true;
             if (object == null || getClass() != object.getClass()) return false;
-            @NotNull Parameter parameter = (Parameter) object;
-            return this.toString().equalsIgnoreCase(parameter.toString());
+            @NotNull Parameter that = (Parameter) object;
+            return this.key.equalsIgnoreCase(that.key) && this.value.equalsIgnoreCase(that.value);
         }
 
         @Override

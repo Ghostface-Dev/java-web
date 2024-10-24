@@ -8,8 +8,7 @@ import java.net.URI;
 
 public interface HttpRequest extends HttpElement {
 
-    @NotNull
-    HttpMethod getMethod();
+    @NotNull HttpMethod getMethod();
 
     @NotNull URI getURI();
 
