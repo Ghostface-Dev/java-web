@@ -31,6 +31,12 @@
             <artifactId>gson</artifactId>
             <version>2.11.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>codes.laivy</groupId>
+            <artifactId>java-address</artifactId>
+            <version>1.2.1</version>
+        </dependency>
     </dependencies>
 
     <properties>
