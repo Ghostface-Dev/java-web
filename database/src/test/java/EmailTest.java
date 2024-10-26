@@ -1,6 +1,7 @@
 import ghostface.dev.type.email.Email;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,18 +40,26 @@ public final class EmailTest {
     };
 
     @Test
-    public void test() throws Throwable {
+    @DisplayName("Tests valids emails")
+    public void testValid() {
         for (@NotNull String valid : valids) {
+            Assertions.assertTrue(Email.validate(valid));
+
             @NotNull Email email = Email.parse(valid);
             Assertions.assertEquals(email.toString(), valid);
         }
+    }
 
+    @Test
+    @DisplayName("Tests invalids emails")
+    public void testInvalid() {
         for (@NotNull String invalid: invalids) {
             try {
                 @NotNull Email email = Email.parse(invalid);
                 Assertions.fail();
             } catch (@NotNull Throwable throwable) {
-                Assertions.assertTrue(true);
+                log.info("String: {}", invalid);
+                Assertions.assertFalse(Email.validate(invalid));
             }
         }
     }

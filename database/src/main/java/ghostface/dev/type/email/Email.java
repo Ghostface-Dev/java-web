@@ -12,23 +12,42 @@ import java.util.regex.Pattern;
 
 public final class Email implements CharSequence {
 
-    public static final @NotNull Pattern regex = Pattern.compile("^[a-zA-Z0-9\".!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z]{2,63}$");
+    private static final @NotNull Pattern regex = Pattern.compile("^(?!.*\\.\\.)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?!-).*[a-zA-Z0-9\\-]+(?:\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z]{2,63}$");
 
     public static boolean validate(@NotNull String str) {
         @NotNull String s = str.replace("(at)", "@").replace("(dot)", ".");
-        @NotNull String @NotNull [] parts = s.split("@");
 
         if (s.length() < 6) {
             return false;
         } else if (s.length() > 256) {
             return false;
-        } else if (!s.matches(regex.pattern())) {
+        }
+
+        @NotNull String @NotNull [] parts = s.split("@");
+
+        if (parts.length != 2) {
             return false;
-        } else if (parts.length != 2) {
+        } else if (!parts[1].contains(".")) {
+            return false;
+        } else if (parts[0].matches(".*\\.{2,}.*")) {
+            return false;
+        } else if (parts[0].matches(".*\\s+.*")) {
+            return false;
+        } else if (parts[0].startsWith(".") || parts[0].endsWith(".")) {
+            return false;
+        } else if (parts[1].startsWith("-") || parts[1].startsWith(".") || parts[1].contains("!")) {
             return false;
         } else {
-            return true;
+            @NotNull String @NotNull [] dots = parts[1].split("\\.");
+            if (dots.length == 1) {
+                return false;
+            } else for (@NotNull String part : dots) {
+                if (part.startsWith("-") || part.endsWith("-")) {
+                    return false;
+                }
+            }
         }
+        return true;
     }
 
     public static @NotNull Email parse(@NotNull String str) {
@@ -37,21 +56,24 @@ public final class Email implements CharSequence {
         } else {
             @NotNull String @NotNull [] parts = str.split("@");
 
+            /* Get the TLD */
             int last = parts[1].split("\\.").length -1;
             @NotNull String tld = parts[1].split("\\.")[last];
 
+            /* Get the rest (without TLD) */
             int index = parts[1].lastIndexOf(".");
-            @NotNull String @NotNull [] slds = parts[1].substring(0, index).split("\\.");
+            @NotNull String @NotNull [] rest = parts[1].substring(0, index).split("\\.");
 
             @Nullable Subdomain @Nullable [] subdomains = null;
-            if (slds.length > 1) {
-                subdomains = new Subdomain[slds.length -1];
-                for (int i = 0 ; i < slds.length -1 ; i++) {
-                    subdomains[i] = Subdomain.create(slds[i]);
+            if (rest.length > 1) {
+                int subs = rest.length -1; // size of subdomains
+                subdomains = new Subdomain[subs];
+                for (int i = 0; i < subs ; i++) {
+                    subdomains[i] = Subdomain.create(rest[i]);
                 }
             }
 
-            return new Email(parts[0], subdomains, SLD.parse(slds[slds.length - 1]), TLD.parse(tld));
+            return new Email(parts[0], subdomains, SLD.parse(rest[rest.length - 1]), TLD.parse(tld));
         }
     }
 
