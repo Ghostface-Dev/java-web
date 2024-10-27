@@ -13,4 +13,7 @@ public interface ConcreteType<T> extends DataType {
 
     @Override
     @NotNull T read(byte @NotNull [] bytes) throws IllegalValueException, IOException;
+
+    @Override
+    @NotNull T read(@NotNull Object object) throws IllegalValueException;
 }

@@ -1,6 +1,8 @@
-package ghostface.dev.mapping;
+package ghostface.dev.mapping.table;
 
 import ghostface.dev.exception.IllegalValueException;
+import ghostface.dev.exception.TableException;
+import ghostface.dev.mapping.Data;
 import ghostface.dev.mapping.column.Columns;
 import ghostface.dev.mapping.key.Key;
 import ghostface.dev.operation.Crud;
@@ -28,13 +30,13 @@ public interface Table<T extends Key<?>> extends Crud<T> {
     boolean deleteAll(@NotNull T key);
 
     @Override
-    boolean deleteAll(@NotNull Object value);
+    boolean deleteAll(@NotNull Data value);
 
     @Override
-    void createEmpty(@NotNull T key);
+    boolean createEmpty(@NotNull T key);
 
     @Override
-    void create(@NotNull T key, @NotNull Object @NotNull [] values) throws IllegalValueException;
+    boolean create(@NotNull T key, @NotNull Data data) throws TableException;
 
     @Override
     @NotNull LinkedList<Data> getAll();
@@ -46,8 +48,8 @@ public interface Table<T extends Key<?>> extends Crud<T> {
     @NotNull Optional<Data> get(@NotNull T key);
 
     @Override
-    void setValue(@NotNull T key, @NotNull Object oldValue, @NotNull Object value) throws IllegalValueException;
+    void setValue(@NotNull T key, @NotNull Object oldValue, @NotNull Object value) throws IllegalValueException, TableException;
 
     @Override
-    void setAll(@NotNull T key, @NotNull Object @NotNull [] values) throws IllegalValueException;
+    void setAll(@NotNull T key, @NotNull Data values) throws TableException;
 }

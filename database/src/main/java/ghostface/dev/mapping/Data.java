@@ -5,7 +5,10 @@ import ghostface.dev.exception.IllegalValueException;
 import ghostface.dev.mapping.column.Columns;
 import ghostface.dev.mapping.key.Key;
 import ghostface.dev.mapping.column.Column;
+import ghostface.dev.mapping.table.Table;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 public interface Data {
 
@@ -15,7 +18,7 @@ public interface Data {
 
     @NotNull Object getValue(@NotNull String columnLabel);
 
-    @NotNull Column<?> getColumn(@NotNull Object object) throws IllegalArgumentException;
+    @NotNull Optional<Column<?>> getColumn(@NotNull Object object);
 
     @NotNull Columns getColumns();
 
@@ -23,5 +26,9 @@ public interface Data {
 
     @NotNull Object @NotNull [] getValues();
 
+    @NotNull Table<?> getTable();
+
     void putValue(@NotNull Object value, @NotNull Column<?> column) throws IllegalValueException, IllegalStateException;
+
+    boolean contains(@NotNull Object value);
 }

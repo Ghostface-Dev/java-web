@@ -12,4 +12,5 @@ public interface DataType {
 
     @NotNull Object read(@NotNull InputStream stream) throws IllegalValueException, IOException;
 
+    @NotNull Object read(@NotNull Object object) throws IllegalValueException;
 }

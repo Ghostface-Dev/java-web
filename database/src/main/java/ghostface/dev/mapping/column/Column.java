@@ -8,7 +8,7 @@ public interface Column<T extends DataType> {
 
     @NotNull String label();
 
-    @NotNull T getData();
+    @NotNull T dataType();
 
     boolean isUnique();
 
