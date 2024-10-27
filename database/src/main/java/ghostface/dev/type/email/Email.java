@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 
 public final class Email implements CharSequence {
 
+    // regex is so useless
+    @Deprecated
     private static final @NotNull Pattern regex = Pattern.compile("^(?!.*\\.\\.)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?!-).*[a-zA-Z0-9\\-]+(?:\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z]{2,63}$");
 
     public static boolean validate(@NotNull String str) {

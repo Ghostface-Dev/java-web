@@ -1,3 +1,5 @@
+package datatype.email;
+
 import ghostface.dev.type.email.Email;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
@@ -63,5 +65,4 @@ public final class EmailTest {
             }
         }
     }
-
 }
