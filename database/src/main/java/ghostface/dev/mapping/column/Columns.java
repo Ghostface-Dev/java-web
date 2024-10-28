@@ -2,7 +2,6 @@ package ghostface.dev.mapping.column;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +22,7 @@ public interface Columns extends Iterable<@NotNull Column<?>>, Cloneable {
 
     boolean contains(@NotNull String label);
 
-    @NotNull Collection<@NotNull Column<?>> getAsCollection();
+    @NotNull Column<?> @NotNull [] toArray();
 
     int size();
 
