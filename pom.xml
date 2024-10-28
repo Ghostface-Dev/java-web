@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>http</module>
+        <module>database</module>
     </modules>
 
     <dependencies>
@@ -36,6 +37,12 @@
             <groupId>codes.laivy</groupId>
             <artifactId>java-address</artifactId>
             <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>codes.laivy</groupId>
+            <artifactId>jlogm</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 
