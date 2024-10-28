@@ -1,6 +1,6 @@
 package ghostface.dev.type.number;
 
-import ghostface.dev.exception.IllegalValueException;
+import ghostface.dev.exception.data.IllegalValueException;
 import ghostface.dev.type.ConcreteType;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,7 +10,10 @@ import java.io.InputStream;
 
 public final class IntegerDataType implements ConcreteType<Integer> {
 
-    public IntegerDataType() {
+    private static final @NotNull IntegerDataType INSTANCE = new IntegerDataType();
+
+    public static @NotNull IntegerDataType getInstance() {
+        return INSTANCE;
     }
 
     @Override
@@ -35,5 +38,21 @@ public final class IntegerDataType implements ConcreteType<Integer> {
         } catch (NumberFormatException e) {
             throw new IllegalValueException(e.getMessage());
         }
+    }
+
+    @Override
+    public @NotNull Integer read(@NotNull Object object) throws IllegalValueException {
+        try {
+            return Integer.getInteger((String) object);
+        } catch (@NotNull Throwable throwable) {
+            try {
+                return (int) object;
+            } catch (@NotNull Throwable thr) {
+                throw new IllegalValueException("Object is not a valid Integer");
+            }
+        }
+    }
+
+    private IntegerDataType() {
     }
 }

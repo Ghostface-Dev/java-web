@@ -1,6 +1,6 @@
 package ghostface.dev.type.string;
 
-import ghostface.dev.exception.IllegalValueException;
+import ghostface.dev.exception.data.IllegalValueException;
 import ghostface.dev.type.ConcreteType;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,8 +11,13 @@ import java.nio.charset.StandardCharsets;
 
 public final class StringDataType implements ConcreteType<String> {
 
-    public StringDataType() {
+    private static final @NotNull StringDataType INSTANCE = new StringDataType();
+
+    public static @NotNull StringDataType getInstance() {
+        return INSTANCE;
     }
+
+    // Objects
 
     @Override
     public @NotNull String read(@NotNull InputStream stream) throws IllegalValueException, IOException {
@@ -34,6 +39,16 @@ public final class StringDataType implements ConcreteType<String> {
     }
 
     @Override
+    public @NotNull String read(@NotNull Object object) throws IllegalValueException {
+        try {
+            @NotNull String s = (String) object;
+            return read(s.getBytes());
+        } catch (@NotNull Throwable throwable) {
+            throw new IllegalValueException("Object is not a String");
+        }
+    }
+
+    @Override
     public @NotNull String read(byte @NotNull [] bytes) throws IllegalValueException {
         @NotNull String s = new String(bytes, StandardCharsets.UTF_8);
         if (s.trim().isEmpty()) {
@@ -41,5 +56,8 @@ public final class StringDataType implements ConcreteType<String> {
         } else {
             return s;
         }
+    }
+
+    private StringDataType() {
     }
 }

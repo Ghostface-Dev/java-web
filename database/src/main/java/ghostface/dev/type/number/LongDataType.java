@@ -1,6 +1,6 @@
 package ghostface.dev.type.number;
 
-import ghostface.dev.exception.IllegalValueException;
+import ghostface.dev.exception.data.IllegalValueException;
 import ghostface.dev.type.ConcreteType;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,7 +10,10 @@ import java.io.InputStream;
 
 public final class LongDataType implements ConcreteType<Long> {
 
-    public LongDataType() {
+    private static final @NotNull LongDataType INSTANCE = new LongDataType();
+
+    public static @NotNull LongDataType getInstance() {
+        return INSTANCE;
     }
 
     @Override
@@ -35,5 +38,21 @@ public final class LongDataType implements ConcreteType<Long> {
         } catch (NumberFormatException e) {
             throw new IllegalValueException(e.getMessage());
         }
+    }
+
+    @Override
+    public @NotNull Long read(@NotNull Object object) throws IllegalValueException {
+        try {
+            return Long.getLong((String) object);
+        } catch (@NotNull Throwable throwable) {
+            try {
+                return (long) object;
+            } catch (@NotNull Throwable thr) {
+                throw new IllegalValueException("Object is not a valid Integer");
+            }
+        }
+    }
+
+    private LongDataType() {
     }
 }

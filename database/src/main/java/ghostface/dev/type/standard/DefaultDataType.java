@@ -1,6 +1,6 @@
 package ghostface.dev.type.standard;
 
-import ghostface.dev.exception.IllegalValueException;
+import ghostface.dev.exception.data.IllegalValueException;
 import ghostface.dev.type.ConcreteType;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,9 +10,12 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-public final class StandardDataType implements ConcreteType<UUID> {
+public final class DefaultDataType implements ConcreteType<UUID> {
 
-    public StandardDataType() {
+    private static final @NotNull DefaultDataType INSTANCE = new DefaultDataType();
+
+    public static @NotNull DefaultDataType getInstance() {
+        return INSTANCE;
     }
 
     @Override
@@ -21,6 +24,15 @@ public final class StandardDataType implements ConcreteType<UUID> {
             return UUID.fromString(new String(bytes, StandardCharsets.UTF_8));
         } catch (IllegalArgumentException e) {
             throw new IllegalValueException(e.getMessage());
+        }
+    }
+
+    @Override
+    public @NotNull UUID read(@NotNull Object object) throws IllegalValueException {
+        try {
+            return UUID.fromString((String) object);
+        } catch (@NotNull Throwable throwable) {
+            throw new IllegalValueException("Object is not a valid UUID");
         }
     }
 
@@ -39,4 +51,6 @@ public final class StandardDataType implements ConcreteType<UUID> {
         }
     }
 
+    private DefaultDataType() {
+    }
 }

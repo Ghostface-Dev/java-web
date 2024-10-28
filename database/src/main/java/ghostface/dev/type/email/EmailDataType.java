@@ -1,6 +1,6 @@
 package ghostface.dev.type.email;
 
-import ghostface.dev.exception.IllegalValueException;
+import ghostface.dev.exception.data.IllegalValueException;
 import ghostface.dev.type.ConcreteType;
 import org.jetbrains.annotations.NotNull;
 
