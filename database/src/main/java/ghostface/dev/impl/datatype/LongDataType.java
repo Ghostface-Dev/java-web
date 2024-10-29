@@ -1,4 +1,4 @@
-package ghostface.dev.type.number;
+package ghostface.dev.impl.datatype;
 
 import ghostface.dev.exception.data.IllegalValueException;
 import ghostface.dev.type.ConcreteType;

@@ -1,4 +1,4 @@
-package ghostface.dev.type.standard;
+package ghostface.dev.impl.datatype;
 
 import ghostface.dev.exception.data.IllegalValueException;
 import ghostface.dev.type.ConcreteType;
@@ -10,11 +10,11 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-public final class DefaultDataType implements ConcreteType<UUID> {
+public final class UUIDDataType implements ConcreteType<UUID> {
 
-    private static final @NotNull DefaultDataType INSTANCE = new DefaultDataType();
+    private static final @NotNull UUIDDataType INSTANCE = new UUIDDataType();
 
-    public static @NotNull DefaultDataType getInstance() {
+    public static @NotNull UUIDDataType getInstance() {
         return INSTANCE;
     }
 
@@ -51,6 +51,6 @@ public final class DefaultDataType implements ConcreteType<UUID> {
         }
     }
 
-    private DefaultDataType() {
+    private UUIDDataType() {
     }
 }

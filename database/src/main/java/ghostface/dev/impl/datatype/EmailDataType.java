@@ -1,4 +1,4 @@
-package ghostface.dev.type.email;
+package ghostface.dev.impl.datatype;
 
 import ghostface.dev.exception.data.IllegalValueException;
 import ghostface.dev.type.ConcreteType;
