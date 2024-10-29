@@ -1,7 +1,7 @@
 package datatype.email;
 
-import ghostface.dev.exception.IllegalValueException;
-import ghostface.dev.type.email.EmailDataType;
+import ghostface.dev.exception.data.IllegalValueException;
+import ghostface.dev.impl.datatype.EmailDataType;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
