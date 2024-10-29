@@ -1,16 +1,14 @@
 package ghostface.dev.mapping.column;
 
-import ghostface.dev.type.DataType;
+import ghostface.dev.type.ConcreteType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public interface Column<T extends DataType> {
+public interface Column<T> {
 
     @NotNull String label();
 
-    @NotNull T dataType();
-
-    boolean isUnique();
+    @NotNull ConcreteType<T> dataType();
 
     @Override
     boolean equals(@Nullable Object o);

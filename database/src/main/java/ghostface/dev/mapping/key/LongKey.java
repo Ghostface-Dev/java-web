@@ -1,12 +1,10 @@
 package ghostface.dev.mapping.key;
 
-import ghostface.dev.exception.data.IllegalValueException;
-import ghostface.dev.type.number.LongDataType;
+import ghostface.dev.type.ConcreteType;
+import ghostface.dev.impl.datatype.LongDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public final class LongKey extends Key<@NotNull Long> {
 
@@ -14,31 +12,23 @@ public final class LongKey extends Key<@NotNull Long> {
         return new LongKey(IdGenerate.generate());
     }
 
+    // Objects
+
     public LongKey(long value) {
         super(value);
     }
 
     @Override
-    public @NotNull Long read(byte @NotNull [] bytes) throws IllegalValueException {
-        return LongDataType.getInstance().read(bytes);
-    }
-
-    @Override
-    public @NotNull Long read(@NotNull Object object) throws IllegalValueException {
-        return LongDataType.getInstance().read(object);
-    }
-
-    @Override
-    public @NotNull Long read(@NotNull InputStream stream) throws IllegalValueException, IOException {
-        return LongDataType.getInstance().read(stream);
+    public @NotNull ConcreteType<@NotNull Long> concreteType() {
+        return LongDataType.getInstance();
     }
 
     // Classes
 
     private static final class IdGenerate {
-        private static final @NotNull AtomicInteger atomic = new AtomicInteger(0);
+        private static final @NotNull AtomicLong atomic = new AtomicLong(0);
 
-        private static int generate() {
+        private static long generate() {
             return atomic.incrementAndGet();
         }
 

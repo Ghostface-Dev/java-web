@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public abstract class Key<T> implements ConcreteType<T> {
+public abstract class Key<T>  {
 
     private final @NotNull T value;
 
@@ -17,6 +17,8 @@ public abstract class Key<T> implements ConcreteType<T> {
     public final @NotNull T getValue() {
         return value;
     }
+
+    public abstract @NotNull ConcreteType<T> concreteType();
 
     @Override
     public final boolean equals(@Nullable Object o) {

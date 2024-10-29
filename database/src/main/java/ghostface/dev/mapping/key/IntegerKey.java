@@ -1,11 +1,10 @@
 package ghostface.dev.mapping.key;
 
-import ghostface.dev.exception.data.IllegalValueException;
-import ghostface.dev.type.number.IntegerDataType;
+import ghostface.dev.type.ConcreteType;
+import ghostface.dev.impl.datatype.IntegerDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class IntegerKey extends Key<@NotNull Integer> {
@@ -14,23 +13,15 @@ public final class IntegerKey extends Key<@NotNull Integer> {
         return new IntegerKey(IdGenerate.generate());
     }
 
+    // Objects
+
     public IntegerKey(int value) {
         super(value);
     }
 
     @Override
-    public @NotNull Integer read(byte @NotNull [] bytes) throws IllegalValueException {
-        return IntegerDataType.getInstance().read(bytes);
-    }
-
-    @Override
-    public @NotNull Integer read(@NotNull Object object) throws IllegalValueException {
-        return IntegerDataType.getInstance().read(object);
-    }
-
-    @Override
-    public @NotNull Integer read(@NotNull InputStream stream) throws IllegalValueException, IOException {
-        return IntegerDataType.getInstance().read(stream);
+    public @NotNull ConcreteType<@NotNull Integer> concreteType() {
+        return IntegerDataType.getInstance();
     }
 
     // Classes

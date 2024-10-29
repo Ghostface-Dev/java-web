@@ -1,7 +1,5 @@
 package ghostface.dev.mapping.table;
 
-import ghostface.dev.exception.data.DataException;
-import ghostface.dev.exception.data.IllegalValueException;
 import ghostface.dev.exception.TableException;
 import ghostface.dev.mapping.column.Column;
 import ghostface.dev.mapping.data.Data;
@@ -27,7 +25,7 @@ public interface Table<T extends Key<?>> extends Crud<T> {
     }
 
     default boolean contains(@NotNull Data<T> data) {
-        return getAll().contains(data);
+        return this.contains(data.getKey());
     }
 
     // Crud Implementation
@@ -38,8 +36,8 @@ public interface Table<T extends Key<?>> extends Crud<T> {
     }
 
     @Override
-    default boolean deleteAll(@NotNull Data<T> value) {
-        return deleteAll(value.getKey());
+    default boolean deleteAll(@NotNull Data<T> data) {
+        return this.deleteAll(data.getKey());
     }
 
     @Override
@@ -59,8 +57,5 @@ public interface Table<T extends Key<?>> extends Crud<T> {
     }
 
     @Override
-    void setValue(@NotNull T key, @UnknownNullability Object value, @NotNull Column<?> column) throws IllegalValueException, TableException;
-
-    @Override
-    void setAll(@NotNull T key, @NotNull Data<T> values) throws TableException;
+    boolean setAll(@NotNull Data<T> data) throws TableException;
 }
