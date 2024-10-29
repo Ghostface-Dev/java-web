@@ -7,6 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 public interface Upgradable<T extends Key<?>> {
 
-    boolean setAll(@NotNull Data<T> data) throws TableException;
+    void setAll(@NotNull T key, @NotNull Data<T> data) throws TableException;
 
 }

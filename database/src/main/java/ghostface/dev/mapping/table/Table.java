@@ -57,5 +57,5 @@ public interface Table<T extends Key<?>> extends Crud<T> {
     }
 
     @Override
-    boolean setAll(@NotNull Data<T> data) throws TableException;
+    void setAll(@NotNull T key, @NotNull Data<T> data) throws TableException;
 }

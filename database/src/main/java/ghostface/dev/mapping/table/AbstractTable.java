@@ -46,12 +46,11 @@ public abstract class AbstractTable<T extends Key<?>> implements Table<T> {
     }
 
     @Override
-    public boolean setAll(@NotNull Data<T> data) throws TableException {
+    public void setAll(@NotNull T key, @NotNull Data<T> data) throws TableException {
         if (!contains(data.getKey())) {
-            return false;
+            throw new TableException("Key does not belong to this table");
         } else synchronized (lock) {
-            index.put(data.getKey(), data);
-            return true;
+            index.put(key, data);
         }
     }
 }

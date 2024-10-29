@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import ghostface.dev.impl.column.ColumnsImpl;
 import ghostface.dev.impl.column.StringColumn;
 import ghostface.dev.impl.data.DataUUID;
-import ghostface.dev.impl.table.UUIDTable;
+import ghostface.dev.mapping.table.UUIDTable;
 import ghostface.dev.mapping.column.Column;
 import ghostface.dev.mapping.column.Columns;
 import ghostface.dev.mapping.data.Data;
