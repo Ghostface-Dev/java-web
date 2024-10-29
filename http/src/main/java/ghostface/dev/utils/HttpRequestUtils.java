@@ -1,5 +1,6 @@
 package ghostface.dev.utils;
 
+import codes.laivy.address.host.HttpHost;
 import com.google.gson.JsonElement;
 import ghostface.dev.HttpMethod;
 import ghostface.dev.HttpVersion;
@@ -24,7 +25,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
 
-public final class HttpRequestParser {
+public final class HttpRequestUtils {
 
     private static final @NotNull String CRLF = "\r\n";
 
@@ -40,23 +41,22 @@ public final class HttpRequestParser {
                 * */
                 @NotNull String line = reader.readLine();
 
-                final @NotNull HttpMethod method = HttpRequestReadLine.readMethod(line);
-                final @NotNull URI uri = HttpRequestReadLine.readURI(line);
-                final @NotNull HttpVersion version = HttpRequestReadLine.readVersion(line);
+                final @NotNull HttpMethod method = HttpReader.readMethod(line);
+                final @NotNull URI uri = HttpReader.readURI(line);
+                final @NotNull HttpVersion version = HttpReader.readVersion(line);
 
                 /*
                 * Host
                 *  */
                 line = reader.readLine();
-                if (line == null || line.isEmpty()) {
-                    throw new HttpParserException("Cannot find the host");
-                }
 
+                @NotNull HttpHeader<@NotNull HttpHost<?>> host = HttpHeaderName.HOST.parse(line);
 
                 /*
                 * Preparing to read the headers until a double CRLF is encountered.
                 * */
                 final @NotNull HttpHeaders headers = new HttpHeaders(Target.REQUEST);
+                headers.add(host);
 
                 @Nullable HttpHeader<MediaType<@NotNull JsonElement>> jsonMedia = null;
                 @Nullable HttpHeader<@NotNull Integer> contentLength = null;
@@ -103,6 +103,9 @@ public final class HttpRequestParser {
         }
     }
 
+    /*
+     * Private method of HttpUtils to validate a string representation of an HTTP request
+     * */
     private static boolean validate(@NotNull String str) {
         if (str.isEmpty()) {
             return false;
@@ -117,7 +120,7 @@ public final class HttpRequestParser {
         }
     }
 
-    private HttpRequestParser() {
+    private HttpRequestUtils() {
         throw new UnsupportedOperationException();
     }
 }

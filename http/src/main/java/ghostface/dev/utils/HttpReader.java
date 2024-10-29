@@ -1,5 +1,6 @@
 package ghostface.dev.utils;
 
+import com.google.gson.JsonParser;
 import ghostface.dev.exception.HttpParserException;
 import ghostface.dev.HttpMethod;
 import ghostface.dev.HttpVersion;
@@ -11,7 +12,7 @@ import java.net.URI;
 /*
 * This utility class is designed to read the first line of an HTTP request.
 * */
-public final class HttpRequestReadLine {
+public final class HttpReader {
 
     public static @NotNull HttpVersion readVersion(@NotNull String firstLine) throws HttpParserException {
         try {
@@ -53,7 +54,7 @@ public final class HttpRequestReadLine {
     }
 
     // Constructor
-    private HttpRequestReadLine() {
+    private HttpReader() {
         throw new UnsupportedOperationException();
     }
 }

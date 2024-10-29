@@ -1,9 +1,10 @@
 package element;
 
+import codes.laivy.address.host.HttpHost;
 import ghostface.dev.element.HttpRequest;
 import ghostface.dev.headers.HttpHeader;
 import ghostface.dev.headers.HttpHeaderName;
-import ghostface.dev.utils.HttpRequestParser;
+import ghostface.dev.utils.HttpRequestUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Assertions;
@@ -22,13 +23,18 @@ public class HttpResponseTest {
     @DisplayName("Tests an simple request")
     public void validate() throws Throwable {
         for (@NotNull String valid : valids) {
-            @NotNull HttpRequest request = HttpRequestParser.read(valid);
-            @NotNull String @NotNull [] first = valid.split("\r\n\r\n")[0].split("\\s");
+            @NotNull HttpRequest request = HttpRequestUtils.read(valid);
+            @NotNull String @NotNull [] first = valid.split("\r\n")[0].split("\\s");
 
             Assertions.assertEquals(request.getMethod().name(), first[0]);
             Assertions.assertEquals(request.getURI().getPath(), first[1]);
             Assertions.assertEquals(request.getVersion().toString(), first[2]);
             Assertions.assertEquals(0, request.getBody().length());
+
+            @Nullable HttpHeader<@NotNull HttpHost<?>> host = request.getHeaders().getHeader(HttpHeaderName.HOST).orElse(null);
+
+            assert host != null;
+            Assertions.assertEquals(host.getAsString(), valid.split("\r\n")[1]);
         }
     }
 
@@ -43,7 +49,7 @@ public class HttpResponseTest {
                         "Content-Length: 22\r\n\r\n" +
                         "{\"test\":\"hello world\"}";
 
-        @NotNull HttpRequest request = HttpRequestParser.read(str);
+        @NotNull HttpRequest request = HttpRequestUtils.read(str);
         @NotNull String @NotNull [] first = str.split("\r\n\r\n")[0].split("\\s");
 
         Assertions.assertEquals(request.getMethod().name(), first[0]);
