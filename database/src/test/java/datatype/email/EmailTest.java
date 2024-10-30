@@ -12,7 +12,7 @@ public final class EmailTest {
 
     private static final Logger log = LoggerFactory.getLogger(EmailTest.class);
 
-    private final @NotNull String @NotNull [] valids = new String[] {
+    private final @NotNull String @NotNull [] valids = {
             "simple@example.com",
             "very.common@example.com",
             "disposable.style.email.with+symbol@example.com",
@@ -27,7 +27,7 @@ public final class EmailTest {
             "user.test@subdomin.more.example.com"
     };
 
-    private final @NotNull String @NotNull [] invalids = new String[] {
+    private final @NotNull String @NotNull [] invalids = {
             "plainaddress",
             ".starts.with.dot@example.com",
             "ends.with.dot.@example.com",

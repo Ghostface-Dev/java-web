@@ -13,7 +13,6 @@ import java.util.*;
 public abstract class AbstractData<T extends Key<?>> implements Data<T> {
 
     protected final @NotNull Object lock = new Object();
-
     protected final @NotNull Map<@NotNull Column<?>, @UnknownNullability Object> values = new LinkedHashMap<>();
 
     private final @NotNull T key;
@@ -24,6 +23,7 @@ public abstract class AbstractData<T extends Key<?>> implements Data<T> {
         this.key = key;
         this.table = table;
         this.columns = table.getColumns();
+        columns.forEach(column -> values.put(column, null));
     }
 
     @Override

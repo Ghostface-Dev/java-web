@@ -21,6 +21,11 @@ public abstract class Key<T>  {
     public abstract @NotNull ConcreteType<T> concreteType();
 
     @Override
+    public final @NotNull String toString() {
+        return value.toString();
+    }
+
+    @Override
     public final boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

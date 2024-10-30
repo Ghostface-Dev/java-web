@@ -30,4 +30,8 @@ public interface Columns extends Iterable<@NotNull Column<?>>, Cloneable {
 
     @Override
     @NotNull Iterator<@NotNull Column<?>> iterator();
+
+    default boolean isEmpty() {
+        return size() == 0;
+    }
 }

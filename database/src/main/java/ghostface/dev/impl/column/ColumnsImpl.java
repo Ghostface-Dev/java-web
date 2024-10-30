@@ -12,7 +12,8 @@ public final class ColumnsImpl implements Columns {
 
     private final @NotNull Set<@NotNull Column<?>> columns = new LinkedHashSet<>();
 
-    public ColumnsImpl() {
+    public ColumnsImpl(@NotNull Column<?> ... columns) {
+        this.columns.addAll(Arrays.asList(columns));
     }
 
     @Override

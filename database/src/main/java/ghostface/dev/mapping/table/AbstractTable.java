@@ -1,5 +1,7 @@
 package ghostface.dev.mapping.table;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import ghostface.dev.exception.TableException;
 import ghostface.dev.mapping.column.Columns;
 import ghostface.dev.mapping.data.Data;
@@ -18,6 +20,9 @@ public abstract class AbstractTable<T extends Key<?>> implements Table<T> {
 
     public AbstractTable(@NotNull Columns columns) {
         this.columns = columns;
+        if (columns.isEmpty()) {
+            throw new IllegalArgumentException("Columns cannot be null");
+        }
     }
 
     @Override
@@ -28,6 +33,20 @@ public abstract class AbstractTable<T extends Key<?>> implements Table<T> {
     @Override
     public @NotNull Set<@NotNull T> getKeys() {
         return Collections.unmodifiableSet(index.keySet());
+    }
+
+    @Override
+    public @NotNull JsonElement serialize() {
+        @NotNull JsonObject object = new JsonObject();
+        index.forEach((key, data) -> object.add(key.getValue().toString(), data.serialize()));
+        return object;
+    }
+
+    @Override
+    public @NotNull JsonElement serializeByKey() {
+        @NotNull JsonObject object = new JsonObject();
+        getKeys().forEach(key -> object.addProperty("key", key.getValue().toString()));
+        return object;
     }
 
     @Override
