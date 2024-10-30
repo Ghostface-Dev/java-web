@@ -1,5 +1,6 @@
 package ghostface.dev.mapping.table;
 
+import com.google.gson.JsonElement;
 import ghostface.dev.exception.TableException;
 import ghostface.dev.mapping.column.Column;
 import ghostface.dev.mapping.data.Data;
@@ -27,6 +28,10 @@ public interface Table<T extends Key<?>> extends Crud<T> {
     default boolean contains(@NotNull Data<T> data) {
         return this.contains(data.getKey());
     }
+
+    @NotNull JsonElement serialize();
+
+    @NotNull JsonElement serializeByKey();
 
     // Crud Implementation
 
