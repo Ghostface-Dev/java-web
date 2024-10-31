@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 public class HttpResponseTest {
 
     private final @NotNull String @NotNull [] valids = new String[] {

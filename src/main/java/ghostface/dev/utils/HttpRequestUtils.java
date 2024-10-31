@@ -47,7 +47,7 @@ public final class HttpRequestUtils {
 
                 /*
                 * Host
-                *  */
+                * */
                 line = reader.readLine();
 
                 @NotNull HttpHeader<@NotNull HttpHost<?>> host = HttpHeaderName.HOST.parse(line);
