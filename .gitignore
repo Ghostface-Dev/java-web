@@ -1,7 +1,8 @@
-.idea
-java-web.iml
-.gitattributes
 
+.idea
+.gitattributes
+/target
+*.iml
 # Compiled class file
 *.class
 
