@@ -1,13 +1,15 @@
-package ghostface.dev.mapping.table;
+package ghostface.dev.mapping.provider;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import ghostface.dev.exception.TableException;
-import ghostface.dev.mapping.column.Columns;
-import ghostface.dev.mapping.data.Data;
-import ghostface.dev.mapping.key.Key;
+import ghostface.dev.mapping.Table;
+import ghostface.dev.mapping.Columns;
+import ghostface.dev.mapping.Data;
+import ghostface.dev.mapping.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.*;
 
@@ -16,22 +18,22 @@ public abstract class AbstractTable<T extends Key<?>> implements Table<T> {
     protected final @NotNull Object lock = new Object();
     protected final @NotNull Map<@NotNull T, @UnknownNullability Data<T>> index = new LinkedHashMap<>();
 
-    private final @NotNull Columns columns;
+    private final @NotNull Columns unmodifiableColumns;
 
     public AbstractTable(@NotNull Columns columns) {
-        this.columns = columns;
         if (columns.isEmpty()) {
             throw new IllegalArgumentException("Columns cannot be null");
         }
+        this.unmodifiableColumns = columns.getUnmodifiable();
     }
 
     @Override
-    public @NotNull Columns getColumns() {
-        return columns;
+    public @Unmodifiable @NotNull Columns getUnmodifiableColumns() {
+        return unmodifiableColumns;
     }
 
     @Override
-    public @NotNull Set<@NotNull T> getKeys() {
+    public @Unmodifiable @NotNull Set<@NotNull T> getKeys() {
         return Collections.unmodifiableSet(index.keySet());
     }
 
@@ -60,8 +62,18 @@ public abstract class AbstractTable<T extends Key<?>> implements Table<T> {
     }
 
     @Override
-    public @NotNull LinkedList<Data<T>> getAll() {
+    public @Unmodifiable @NotNull LinkedList<Data<T>> getAll() {
         return new LinkedList<>(index.values());
+    }
+
+    @Override
+    public boolean deleteAll(@NotNull T key) {
+        if (!contains(key)) {
+            return false;
+        } else synchronized (lock){
+            index.remove(key);
+            return true;
+        }
     }
 
     @Override

@@ -1,10 +1,9 @@
 package ghostface.dev.operation;
 
-import ghostface.dev.exception.TableException;
 import ghostface.dev.exception.data.DataException;
-import ghostface.dev.mapping.column.Column;
-import ghostface.dev.mapping.data.Data;
-import ghostface.dev.mapping.key.Key;
+import ghostface.dev.mapping.Column;
+import ghostface.dev.mapping.Data;
+import ghostface.dev.mapping.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
 

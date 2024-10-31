@@ -1,6 +1,7 @@
 package ghostface.dev.impl.datatype;
 
 import ghostface.dev.exception.data.IllegalValueException;
+import ghostface.dev.impl.datatype.model.Email;
 import ghostface.dev.type.ConcreteType;
 import org.jetbrains.annotations.NotNull;
 

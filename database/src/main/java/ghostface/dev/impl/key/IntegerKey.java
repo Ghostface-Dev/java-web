@@ -1,5 +1,6 @@
-package ghostface.dev.mapping.key;
+package ghostface.dev.impl.key;
 
+import ghostface.dev.mapping.Key;
 import ghostface.dev.type.ConcreteType;
 import ghostface.dev.impl.datatype.IntegerDataType;
 import org.jetbrains.annotations.NotNull;

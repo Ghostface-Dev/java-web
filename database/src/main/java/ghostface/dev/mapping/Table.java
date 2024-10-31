@@ -1,14 +1,11 @@
-package ghostface.dev.mapping.table;
+package ghostface.dev.mapping;
 
 import com.google.gson.JsonElement;
 import ghostface.dev.exception.TableException;
-import ghostface.dev.mapping.column.Column;
-import ghostface.dev.mapping.data.Data;
-import ghostface.dev.mapping.column.Columns;
-import ghostface.dev.mapping.key.Key;
 import ghostface.dev.operation.Crud;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.LinkedList;
 import java.util.Optional;
@@ -17,9 +14,9 @@ import java.util.stream.Collectors;
 
 public interface Table<T extends Key<?>> extends Crud<T> {
 
-    @NotNull Columns getColumns();
+    @Unmodifiable @NotNull Columns getUnmodifiableColumns();
 
-    @NotNull Set<@NotNull T> getKeys();
+    @Unmodifiable @NotNull Set<@NotNull T> getKeys();
 
     default boolean contains(@NotNull T key) {
         return getKeys().contains(key);
@@ -36,9 +33,7 @@ public interface Table<T extends Key<?>> extends Crud<T> {
     // Crud Implementation
 
     @Override
-    default boolean deleteAll(@NotNull T key) {
-        return getKeys().remove(key);
-    }
+    boolean deleteAll(@NotNull T key);
 
     @Override
     default boolean deleteAll(@NotNull Data<T> data) {
@@ -49,11 +44,13 @@ public interface Table<T extends Key<?>> extends Crud<T> {
     boolean create(@NotNull Data<T> data);
 
     @Override
-    @NotNull LinkedList<Data<T>> getAll();
+    @Unmodifiable @NotNull LinkedList<Data<T>> getAll();
 
     @Override
     default @NotNull LinkedList<Data<T>> getAll(@UnknownNullability Object value, @NotNull Column<?> column) throws IllegalArgumentException {
-        return getAll().stream().filter(data -> data.getValue(column).equals(value)).collect(Collectors.toCollection(LinkedList::new));
+        return getAll().stream()
+                .filter(data -> data.getValue(column) == null ? value == null : data.getColumn(column).equals(value))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override

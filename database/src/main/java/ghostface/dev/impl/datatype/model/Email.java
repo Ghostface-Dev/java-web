@@ -1,4 +1,4 @@
-package ghostface.dev.impl.datatype;
+package ghostface.dev.impl.datatype.model;
 
 import codes.laivy.address.domain.SLD;
 import codes.laivy.address.domain.Subdomain;

@@ -1,6 +1,6 @@
 package datatype.email;
 
-import ghostface.dev.impl.datatype.Email;
+import ghostface.dev.impl.datatype.model.Email;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

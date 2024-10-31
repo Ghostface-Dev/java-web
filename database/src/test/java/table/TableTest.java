@@ -3,12 +3,12 @@ package table;
 import ghostface.dev.impl.column.ColumnsImpl;
 import ghostface.dev.impl.column.StringColumn;
 import ghostface.dev.impl.data.DataUUID;
-import ghostface.dev.mapping.column.Column;
-import ghostface.dev.mapping.data.Data;
-import ghostface.dev.mapping.key.Key;
-import ghostface.dev.mapping.key.UUIDKey;
-import ghostface.dev.mapping.table.Table;
-import ghostface.dev.mapping.table.UUIDTable;
+import ghostface.dev.mapping.Column;
+import ghostface.dev.mapping.Data;
+import ghostface.dev.mapping.Key;
+import ghostface.dev.impl.key.UUIDKey;
+import ghostface.dev.mapping.Table;
+import ghostface.dev.impl.table.UUIDTable;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,8 +27,7 @@ public final class TableTest {
         Assertions.assertTrue(table.getKeys().isEmpty());
         Assertions.assertTrue(table.getAll().isEmpty());
 
-        Assertions.assertFalse(table.getColumns().add(name));
-        Assertions.assertFalse(table.getColumns().isEmpty());
+        Assertions.assertFalse(table.getUnmodifiableColumns().isEmpty());
 
         final @NotNull Data<Key<UUID>> data = new DataUUID(UUIDKey.create(), table);
         table.create(data);

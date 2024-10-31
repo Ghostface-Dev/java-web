@@ -1,28 +1,31 @@
-package ghostface.dev.mapping.column;
+package ghostface.dev.mapping;
 
+import ghostface.dev.type.ConcreteType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public abstract class AbstractColumn<T> implements Column<T> {
+public abstract class Column<T> {
 
     private final @NotNull String label;
 
-    public AbstractColumn(@NotNull String label) {
+    protected Column(@NotNull String label) {
+        if (label.trim().isEmpty()) throw new IllegalArgumentException("String cannot be null");
         this.label = label;
     }
 
-    @Override
     public @NotNull String label() {
         return label;
     }
+
+    public abstract @NotNull ConcreteType<T> concreteType();
 
     @Override
     public final boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        @NotNull AbstractColumn<?> that = (AbstractColumn<?>) o;
+        @NotNull Column<?> that = (Column<?>) o;
         return label.equalsIgnoreCase(that.label);
     }
 

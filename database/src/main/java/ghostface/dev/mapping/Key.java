@@ -1,4 +1,4 @@
-package ghostface.dev.mapping.key;
+package ghostface.dev.mapping;
 
 import ghostface.dev.type.ConcreteType;
 import org.jetbrains.annotations.NotNull;

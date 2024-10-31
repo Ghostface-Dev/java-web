@@ -1,14 +1,14 @@
 package ghostface.dev.impl.column;
 
-import ghostface.dev.mapping.column.Column;
-import ghostface.dev.mapping.column.Columns;
+import ghostface.dev.mapping.Column;
+import ghostface.dev.mapping.Columns;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public final class ColumnsImpl implements Columns {
+public final class ColumnsImpl extends Columns {
 
     private final @NotNull Set<@NotNull Column<?>> columns = new LinkedHashSet<>();
 
